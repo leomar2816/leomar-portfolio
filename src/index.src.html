@@ -266,6 +266,13 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
 .reveal.in{opacity:1;transform:none}
 .no-js .reveal{opacity:1;transform:none}
 
+/* typewriter reveal (About section onward) */
+.tw-h{color:transparent!important;-webkit-text-fill-color:transparent}
+.tw-typing a{text-decoration-color:transparent!important}
+.tw-caret{position:relative;display:inline-block;width:0;height:1.05em;vertical-align:-.15em}
+.tw-caret::after{content:"";position:absolute;left:1px;top:0;bottom:0;width:2px;border-radius:1px;background:var(--cyan);box-shadow:0 0 6px rgba(94,225,255,.8);animation:twblink .8s steps(1) infinite}
+@keyframes twblink{50%{opacity:0}}
+
 /* reduced motion */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -646,6 +653,74 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
 
   }
 
+
+
+  /* Typewriter reveal for About and every section below it.
+     Text stays in the DOM (accessible), hidden characters are transparent so layout never shifts.
+     Each block types once, the first time it scrolls into view. */
+  (function(){
+    if(reduce || !('IntersectionObserver' in window) || !window.requestAnimationFrame) return;
+    var ids = ['about','skills','experience','projects','education','contact'];
+    var BLOCK = '.sec-head, .panel, details.earlier > summary';
+    var SKIP = {SCRIPT:1, STYLE:1, SVG:1, svg:1, NOSCRIPT:1};
+    var blocks = [];
+    ids.forEach(function(id){
+      var sec = document.getElementById(id); if(!sec) return;
+      sec.querySelectorAll(BLOCK).forEach(function(b){ if(!b.parentElement.closest('.panel, .sec-head')) blocks.push(b); });
+    });
+    function textNodes(root){
+      var out = [], w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function(n){
+        if(!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        for(var e = n.parentNode; e && e !== root; e = e.parentNode){ if(SKIP[e.nodeName] || e.classList && e.classList.contains('sr-only')) return NodeFilter.FILTER_REJECT; }
+        return NodeFilter.FILTER_ACCEPT; } });
+      while(w.nextNode()) out.push(w.currentNode);
+      return out;
+    }
+    function prepare(b){
+      var parts = textNodes(b).map(function(n){
+        var wrap = document.createElement('span'), v = document.createElement('span'), h = document.createElement('span');
+        wrap.className = 'tw'; h.className = 'tw-h'; h.textContent = n.nodeValue;
+        wrap.appendChild(v); wrap.appendChild(h); n.parentNode.replaceChild(wrap, n);
+        return {wrap: wrap, v: v, h: h, text: n.nodeValue, shown: 0};
+      });
+      b.classList.add('tw-typing');
+      return parts;
+    }
+    function finish(st){
+      st.parts.forEach(function(p){ if(p.wrap.parentNode) p.wrap.parentNode.replaceChild(document.createTextNode(p.text), p.wrap); });
+      if(st.caret.parentNode) st.caret.parentNode.removeChild(st.caret);
+      st.block.classList.remove('tw-typing'); st.done = true;
+    }
+    function type(st){
+      var total = st.parts.reduce(function(a,p){ return a + p.text.length; }, 0);
+      /* comfortable pace (~45 chars/s), but never more than ~1.6s per block */
+      var ms = Math.max(4, Math.min(22, 1600 / Math.max(total,1))), t0 = performance.now(), idx = 0;
+      (function step(now){
+        try{
+          var budget = Math.floor((now - t0) / ms);
+          var i = 0, used = 0;
+          for(; i < st.parts.length; i++){
+            var p = st.parts[i], n = Math.min(p.text.length, Math.max(0, budget - used));
+            if(n !== p.shown){ p.v.textContent = p.text.slice(0,n); p.h.textContent = p.text.slice(n); p.shown = n; }
+            used += p.text.length;
+            if(n < p.text.length){ if(st.caret.parentNode !== p.wrap || st.caret.previousSibling !== p.v) p.wrap.insertBefore(st.caret, p.h); break; }
+          }
+          if(i >= st.parts.length) return finish(st);
+          requestAnimationFrame(step);
+        }catch(err){ finish(st); }
+      })(t0);
+    }
+    var states = [];
+    try{
+      blocks.forEach(function(b){ var parts = prepare(b); if(parts.length){ var c = document.createElement('span'); c.className = 'tw-caret'; c.setAttribute('aria-hidden','true'); states.push({block: b, parts: parts, caret: c, done: false}); b.__tw = states[states.length-1]; } });
+    }catch(err){ states.forEach(finish); return; }
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting && e.target.__tw && !e.target.__tw.started){ e.target.__tw.started = true; io.unobserve(e.target); type(e.target.__tw); } });
+    }, {threshold: .15, rootMargin: '0px 0px -8% 0px'});
+    states.forEach(function(st){ io.observe(st.block); });
+    /* safety net: printing or a tab left in the background never leaves text hidden */
+    window.addEventListener('beforeprint', function(){ states.forEach(function(st){ if(!st.done) finish(st); }); });
+  })();
 
   /* Hologram portrait: multi-view (2.5D) rotation + true-3D particle orbits */
   (function(){
