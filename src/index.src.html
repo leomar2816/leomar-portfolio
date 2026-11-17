@@ -27,6 +27,7 @@ img{max-width:100%;display:block}
 a{color:var(--cyan);text-decoration:none}
 a:hover{text-decoration:underline}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip{position:absolute;left:-999px;top:8px;background:var(--cyan);color:#001018;padding:.6rem 1rem;border-radius:8px;z-index:100;font-weight:600}
 .skip:focus{left:8px}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.4rem}
@@ -173,6 +174,8 @@ h3{font:600 1.15rem/1.3 var(--f-head)}
 .job.current::after{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 5px rgba(47,211,181,.18),0 0 16px var(--teal)}
 .job-top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline}
 .job .org{color:var(--muted);font-size:.95rem;margin-top:.15rem}
+.job .org a{color:var(--muted);text-decoration:underline;text-decoration-color:rgba(94,225,255,.4);text-underline-offset:3px}
+.job .org a:hover{color:var(--cyan)}
 .when{font:500 .8rem var(--f-mono);color:var(--cyan);white-space:nowrap}
 .pill{display:inline-block;margin-left:.5rem;padding:.12rem .5rem;border-radius:999px;font:500 .68rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;vertical-align:middle}
 .pill.live{background:rgba(47,211,181,.14);color:var(--teal);border:1px solid rgba(47,211,181,.35)}
@@ -196,8 +199,33 @@ details.earlier[open]>summary .chev{transform:rotate(180deg)}
 .proj ul{list-style:none;display:grid;gap:.5rem}
 .proj ul li{display:flex;gap:.6rem;color:#c9d3e8}
 .proj ul li::before{content:"";flex:none;width:6px;height:6px;margin-top:.62rem;border-radius:2px;background:var(--cyan);transform:rotate(45deg)}
-.subs{display:flex;flex-wrap:wrap;gap:.5rem}
-.subs span{padding:.4rem .75rem;border-radius:10px;font:500 .8rem var(--f-mono);background:rgba(7,11,20,.6);border:1px solid var(--line)}
+.logo-tile{display:grid;place-items:center;flex:none;background:#f6f8fc;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:6px;box-shadow:0 8px 18px -12px rgba(0,0,0,.8)}
+.logo-tile .lg{display:block;width:100%;height:100%;background-position:center;background-size:contain;background-repeat:no-repeat}
+.logo-tile.cover .lg{background-size:cover}
+.lg-electro{background-image:url(__L_electro__)}.lg-petromin{background-image:url(__L_petromin__)}.lg-primo{background-image:url(__L_primo__)}
+.lg-rakaiz{background-image:url(__L_rakaiz__)}.lg-payinn{background-image:url(__L_payinn__)}.lg-gunaydin{background-image:url(__L_gunaydin__)}
+.lg-puzzle{background-image:url(__L_puzzle__)}.lg-muzzon{background-image:url(__L_muzzon__)}
+.logo-tile.dark{background:#11161f;border-color:var(--line)}
+.logo-tile.cover{padding:0;overflow:hidden}
+.job-head{display:flex;gap:1rem;align-items:center}
+.job-logos{display:flex;gap:.45rem}
+.job-logos .logo-tile{width:58px;height:58px}
+a.logo-tile{transition:transform .2s,box-shadow .2s,border-color .2s}
+a.logo-tile:hover{transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(94,225,255,.55);border-color:var(--cyan)}
+.job-logos .logo-tile.wide{width:92px}
+@media (max-width:520px){.job-logos .logo-tile{width:48px;height:48px}.job-logos .logo-tile.wide{width:80px}.job-head{flex-direction:column;align-items:flex-start;gap:.7rem}}
+.proj .sites li{display:block}.proj .sites li::before{display:none}
+.sites{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.8rem}
+.sites a{display:flex;flex-direction:column;gap:.5rem;text-decoration:none;color:var(--text);border-radius:14px;outline-offset:3px}
+.sites .logo-tile{height:88px;padding:12px 14px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.sites a:hover .logo-tile,.sites a:focus-visible .logo-tile{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 16px 28px -14px rgba(94,225,255,.6)}
+.sites .site-meta{display:flex;flex-direction:column;line-height:1.3;padding:0 .2rem}
+.sites .site-name{font-weight:600;font-size:.9rem}
+.sites .site-url{font:500 .68rem var(--f-mono);color:var(--cyan);display:inline-flex;align-items:center;gap:.25rem;white-space:nowrap}
+.sites a:hover .site-url{text-decoration:underline}
+@media (max-width:520px){.sites{grid-template-columns:repeat(2,minmax(0,1fr))}.sites .logo-tile{height:72px;padding:10px}.sites .site-url{font-size:.6rem}}
+.role a{color:inherit;text-decoration:underline;text-decoration-color:rgba(94,225,255,.45);text-underline-offset:4px}
+.role a:hover{color:var(--text);text-decoration-color:var(--cyan)}
 .status{display:inline-flex;align-items:center;gap:.5rem;font:500 .78rem var(--f-mono);color:var(--amber);padding:.35rem .7rem;border-radius:999px;background:rgba(255,184,107,.08);border:1px solid rgba(255,184,107,.3);width:max-content}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.35}}
@@ -279,7 +307,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
     <div>
       <span class="eyebrow"><span class="dot" aria-hidden="true"></span>IT Specialist · Jeddah, Saudi Arabia</span>
       <h1 id="hero-title"><span class="grad">Leomar Montesa</span></h1>
-      <p class="role"><b>IT Specialist</b> at Rakaiz Albaraka Corporate Hub</p>
+      <p class="role"><b>IT Specialist</b> at <a href="https://rakaizalbaraka.com" target="_blank" rel="noopener noreferrer">Rakaiz Albaraka Corporate Hub<span class="sr-only"> (opens in a new tab)</span></a></p>
       <p class="lead">BSIT graduate with over 10 years of experience in IT and technology support, from hands-on support and coordination to administering servers, networks, ERP and day-to-day IT operations. Currently working on website deployment for the holding company and its subsidiary companies.</p>
       <div class="cta">
         <a class="btn primary" href="#experience">View experience
@@ -384,7 +412,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
     <ol class="timeline" style="list-style:none">
       <li class="panel tilt job current reveal">
         <div class="job-top">
-          <div><h3>IT Specialist <span class="pill live">Current</span></h3><p class="org">Rakaiz Albaraka Corporate Hub · Holding company</p></div>
+          <div class="job-head"><div class="job-logos"><a class="logo-tile" href="https://rakaizalbaraka.com" target="_blank" rel="noopener noreferrer" aria-label="Rakaiz Albaraka Corporate Hub website (opens in a new tab)"><i class="lg lg-rakaiz"></i></a></div><div><h3>IT Specialist <span class="pill live">Current</span></h3><p class="org"><a href="https://rakaizalbaraka.com" target="_blank" rel="noopener noreferrer">Rakaiz Albaraka Corporate Hub<span class="sr-only"> (opens in a new tab)</span></a> · Holding company</p></div></div>
           <span class="when"><time datetime="2026-10-25">25 Oct 2026</time> – Present</span>
         </div>
         <ul>
@@ -393,7 +421,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
       </li>
       <li class="panel tilt job reveal">
         <div class="job-top">
-          <div><h3>IT Administrator <span class="pill ended">Ended</span></h3><p class="org">Electro Power Systems · Jeddah, KSA</p></div>
+          <div class="job-head"><div class="job-logos"><span class="logo-tile" role="img" aria-label="Electro Power Systems logo"><i class="lg lg-electro"></i></span></div><div><h3>IT Administrator <span class="pill ended">Ended</span></h3><p class="org">Electro Power Systems · Jeddah, KSA</p></div></div>
           <span class="when"><time datetime="2024-09">Sep 2024</time> – <time datetime="2026-10-22">22 Oct 2026</time></span>
         </div>
         <ul>
@@ -408,7 +436,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
       </li>
       <li class="panel tilt job reveal">
         <div class="job-top">
-          <div><h3>IT Coordinator</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div>
+          <div class="job-head"><div class="job-logos"><span class="logo-tile wide" role="img" aria-label="Petromin logo"><i class="lg lg-petromin"></i></span><span class="logo-tile cover" role="img" aria-label="PRIMO logo"><i class="lg lg-primo"></i></span></div><div><h3>IT Coordinator</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div></div>
           <span class="when"><time datetime="2022-06">Jun 2022</time> – <time datetime="2024-09">Sep 2024</time></span>
         </div>
         <ul>
@@ -422,7 +450,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
       </li>
       <li class="panel tilt job reveal">
         <div class="job-top">
-          <div><h3>IT Support / Regional Admin</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div>
+          <div class="job-head"><div class="job-logos"><span class="logo-tile wide" role="img" aria-label="Petromin logo"><i class="lg lg-petromin"></i></span><span class="logo-tile cover" role="img" aria-label="PRIMO logo"><i class="lg lg-primo"></i></span></div><div><h3>IT Support / Regional Admin</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div></div>
           <span class="when"><time datetime="2018-11">Nov 2018</time> – <time datetime="2022-06">Jun 2022</time></span>
         </div>
         <ul>
@@ -448,7 +476,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
         </li>
         <li class="panel job">
           <div class="job-top">
-            <div><h3>Store Administrator</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div>
+            <div class="job-head"><div class="job-logos"><span class="logo-tile wide" role="img" aria-label="Petromin logo"><i class="lg lg-petromin"></i></span><span class="logo-tile cover" role="img" aria-label="PRIMO logo"><i class="lg lg-primo"></i></span></div><div><h3>Store Administrator</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div></div>
             <span class="when">Aug 2015 – Aug 2017</span>
           </div>
           <ul><li>Handled filing, data entry and record maintenance; prepared store reports on sales, inventory and staff performance; coordinated stock orders with suppliers; processed transactions, receipts and expenses; supported visual merchandising.</li></ul>
@@ -479,16 +507,19 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
       <p class="sec-sub">Current work and selected responsibilities from my roles.</p></div>
     <div class="proj-grid">
       <article class="panel tilt proj feature reveal">
-        <span class="status lift"><i aria-hidden="true"></i>In progress</span>
-        <div class="cube-wrap" aria-hidden="true"><div class="orbit"></div><div class="cube"><div class="f1"></div><div class="f2"></div><div class="f3"></div><div class="f4"></div><div class="f5"></div><div class="f6"></div></div></div>
+        <span class="status lift"><i aria-hidden="true"></i>Ongoing</span>
         <span class="kicker">Rakaiz Albaraka Corporate Hub · 2026–</span>
         <h3>Website deployment for the holding company &amp; subsidiaries</h3>
-        <p>As IT Specialist, I'm working on deploying websites for the holding company and its subsidiary companies. This work is ongoing.</p>
+        <p>As IT Specialist, I'm working on website deployment for the holding company and its subsidiary companies. Select a logo to visit the site.</p>
         <div>
-          <p class="kicker" style="margin-bottom:.6rem">Companies in scope</p>
-          <div class="subs">
-            <span>Rakaiz Albaraka (holding)</span><span>Payinn KSA</span><span>Günaydin Coffee &amp; Bakery</span><span>PUZZLE KSA</span><span>MUZZON</span>
-          </div>
+          <p class="kicker" style="margin-bottom:.8rem">Company websites</p>
+          <ul class="sites">
+            <li><a href="https://rakaizalbaraka.com" target="_blank" rel="noopener noreferrer"><span class="logo-tile" aria-hidden="true"><i class="lg lg-rakaiz"></i></span><span class="site-meta"><span class="site-name">Rakaiz Albaraka</span><span class="site-url">rakaizalbaraka.com <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span><span class="sr-only"> — Holding company, opens in a new tab</span></a></li>
+            <li><a href="https://payinn-ksa.com" target="_blank" rel="noopener noreferrer"><span class="logo-tile" aria-hidden="true"><i class="lg lg-payinn"></i></span><span class="site-meta"><span class="site-name">Payinn KSA</span><span class="site-url">payinn-ksa.com <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span><span class="sr-only"> — Smart self-service, opens in a new tab</span></a></li>
+            <li><a href="https://gunaydin-ksa.com" target="_blank" rel="noopener noreferrer"><span class="logo-tile" aria-hidden="true"><i class="lg lg-gunaydin"></i></span><span class="site-meta"><span class="site-name">Günaydin</span><span class="site-url">gunaydin-ksa.com <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span><span class="sr-only"> — Coffee &amp; Bakery, opens in a new tab</span></a></li>
+            <li><a href="https://puzzle-sa.com" target="_blank" rel="noopener noreferrer"><span class="logo-tile dark" aria-hidden="true"><i class="lg lg-puzzle"></i></span><span class="site-meta"><span class="site-name">PUZZLE KSA</span><span class="site-url">puzzle-sa.com <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span><span class="sr-only"> — Events &amp; creative, opens in a new tab</span></a></li>
+            <li><a href="https://muzzon-sa.com" target="_blank" rel="noopener noreferrer"><span class="logo-tile" aria-hidden="true"><i class="lg lg-muzzon"></i></span><span class="site-meta"><span class="site-name">MUZZON</span><span class="site-url">muzzon-sa.com <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span><span class="sr-only"> — Premium meat, opens in a new tab</span></a></li>
+          </ul>
         </div>
       </article>
       <article class="panel tilt proj reveal">
