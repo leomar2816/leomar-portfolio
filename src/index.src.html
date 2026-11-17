@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leomar Montesa — IT Specialist</title>
+<meta name="description" content="Leomar Montesa — IT Specialist in Jeddah, Saudi Arabia, with over 10 years of experience in IT infrastructure, ERP administration and technology support.">
+<meta name="theme-color" content="#070b14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070b14; --bg2:#0b1222; --panel:rgba(18,28,50,.55); --panel-solid:#101a2e;
+  --line:rgba(140,180,255,.14); --line-strong:rgba(120,220,255,.35);
+  --text:#e8eefb; --muted:#9aa8c3; --dim:#6d7b96;
+  --cyan:#5ee1ff; --teal:#2fd3b5; --amber:#ffb86b; --violet:#8b7bff;
+  --radius:18px; --maxw:1140px;
+  --f-head:"Sora",system-ui,sans-serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--f-body);overflow-x:hidden;
+  background-image:radial-gradient(1200px 700px at 85% -10%,rgba(94,225,255,.10),transparent 60%),
+                   radial-gradient(900px 600px at -10% 30%,rgba(139,123,255,.08),transparent 60%);}
+img{max-width:100%;display:block}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--cyan);color:#001018;padding:.6rem 1rem;border-radius:8px;z-index:100;font-weight:600}
+.skip:focus{left:8px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.4rem}
+.mono{font-family:var(--f-mono)}
+
+/* grid floor */
+.floor{position:fixed;inset:auto 0 0 0;height:55vh;pointer-events:none;z-index:-1;perspective:600px;overflow:hidden;opacity:.55}
+.floor::before{content:"";position:absolute;left:-50%;right:-50%;bottom:-10%;height:160%;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;transform:rotateX(72deg);transform-origin:50% 100%;
+  -webkit-mask-image:linear-gradient(to top,#000 10%,transparent 75%);mask-image:linear-gradient(to top,#000 10%,transparent 75%)}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(7,11,20,.72);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font:700 1.05rem var(--f-head);color:var(--text);letter-spacing:.02em;display:flex;align-items:center;gap:.6rem}
+.brand:hover{text-decoration:none}
+.brand-mark{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font:600 .78rem var(--f-mono);color:#001018;
+  background:linear-gradient(135deg,var(--cyan),var(--teal));box-shadow:0 0 18px rgba(94,225,255,.35)}
+.nav ul{list-style:none;display:flex;gap:1.6rem}
+.nav ul a{color:var(--muted);font-size:.92rem;font-weight:500}
+.nav ul a:hover,.nav ul a[aria-current="true"]{color:var(--text);text-decoration:none}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;width:42px;height:42px;cursor:pointer}
+.menu-btn svg{margin:auto}
+@media (max-width:820px){
+  .menu-btn{display:grid;place-items:center}
+  .nav ul{position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:rgba(7,11,20,.97);border-bottom:1px solid var(--line);display:none;padding:.5rem 1.4rem 1rem}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:.75rem 0;font-size:1rem}
+}
+
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 64px);display:flex;align-items:center;padding:4rem 0 5rem;overflow:hidden}
+#net{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.5}
+@media (max-width:900px){#net{opacity:.35}}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .85fr;gap:3.5rem;align-items:center;width:100%}
+.eyebrow{font:500 .8rem var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--teal);display:inline-flex;align-items:center;gap:.6rem}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(47,211,181,.18)}
+h1{font:700 clamp(2.6rem,6.4vw,4.8rem)/1.02 var(--f-head);letter-spacing:-.025em;margin:1rem 0 .6rem}
+h1 .grad{background:linear-gradient(100deg,#fff 10%,var(--cyan) 55%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font:600 clamp(1.1rem,2.2vw,1.4rem) var(--f-head);color:var(--muted);margin-bottom:1.3rem}
+.role b{color:var(--text);font-weight:600}
+.lead{font-size:1.08rem;color:#c5d0e6;max-width:36rem}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.25rem;border-radius:12px;font-weight:600;font-size:.95rem;border:1px solid var(--line-strong);color:var(--text);background:rgba(94,225,255,.06);transition:transform .2s,background .2s,box-shadow .2s}
+.btn:hover{text-decoration:none;background:rgba(94,225,255,.12);transform:translateY(-2px)}
+.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--teal));color:#001018;border-color:transparent;box-shadow:0 10px 30px -10px rgba(94,225,255,.6)}
+.btn.primary:hover{box-shadow:0 14px 36px -10px rgba(94,225,255,.8)}
+.meta{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.2rem;color:var(--dim);font:400 .82rem var(--f-mono)}
+.meta span{display:inline-flex;align-items:center;gap:.45rem}
+
+/* hologram */
+.stage{display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.holo{--glow:.45;position:relative;height:min(500px,60vh);aspect-ratio:440/640;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;outline-offset:10px;border-radius:24px;-webkit-tap-highlight-color:transparent}
+.holo.dragging{cursor:grabbing}
+.holo .fig{position:absolute;inset:0;z-index:2;animation:float 6s ease-in-out infinite}
+.holo canvas,.holo .holo-static{width:100%;height:100%;display:block;filter:drop-shadow(0 0 14px rgba(94,225,255,var(--glow)));transition:filter .3s}
+.holo.active{--glow:.75}
+.holo.clear canvas{filter:drop-shadow(0 0 1px rgba(150,235,255,.55)) drop-shadow(0 0 14px rgba(94,225,255,calc(var(--glow)*.45))) drop-shadow(0 24px 28px rgba(0,0,0,.55))}
+.holo .holo-static{filter:drop-shadow(0 0 1px rgba(150,235,255,.55)) drop-shadow(0 0 14px rgba(94,225,255,.2))}
+.holo-frames{display:none}
+@keyframes float{50%{transform:translateY(-6px)}}
+.holo .beam{position:absolute;z-index:1;left:-22%;right:-22%;bottom:24px;top:4%;pointer-events:none;
+  background:linear-gradient(to top,rgba(94,225,255,.26),rgba(94,225,255,.05) 55%,transparent 85%);
+  clip-path:polygon(36% 100%,64% 100%,100% 0,0 0);filter:blur(3px);opacity:0;transition:opacity .9s ease .3s}
+.holo .pad{position:absolute;z-index:1;left:-8%;right:-8%;bottom:-4px;height:54px;pointer-events:none;opacity:.25;transition:opacity .4s}
+.holo .pad i{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(94,225,255,.75);
+  box-shadow:0 0 18px rgba(94,225,255,.55),inset 0 0 18px rgba(94,225,255,.35);background:radial-gradient(closest-side,rgba(94,225,255,.24),transparent)}
+.holo .pad i+i{inset:10px 15%;border:1px dashed rgba(139,123,255,.75);box-shadow:none;background:none}
+.holo.on .beam{opacity:.5}
+.holo.on .pad{opacity:.85}
+.holo.on.active .pad{opacity:1}
+.holo.on.active .beam{opacity:.7}
+.holo .readout{position:absolute;z-index:3;left:50%;bottom:62px;transform:translateX(-50%);font:500 .72rem var(--f-mono);letter-spacing:.08em;color:var(--cyan);
+  background:rgba(7,11,20,.7);border:1px solid var(--line-strong);border-radius:999px;padding:.25rem .65rem;white-space:nowrap;opacity:0;transition:opacity .25s;pointer-events:none}
+.holo.active .readout{opacity:1}
+.holo .chip{position:absolute;z-index:3;padding:.55rem .8rem;border-radius:12px;background:rgba(10,18,34,.82);border:1px solid var(--line-strong);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font:500 .74rem var(--f-mono);color:var(--text);white-space:nowrap;box-shadow:0 18px 30px -16px rgba(0,0,0,.8);pointer-events:none;
+  opacity:0;transform:translateY(6px);transition:opacity .6s ease 1.4s,transform .6s ease 1.4s}
+.holo.on .chip{opacity:1;transform:none}
+.holo .chip small{display:block;color:var(--dim);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase}
+.chip.c1{right:-30%;top:10%}
+.chip.c2{right:-34%;top:30%}
+.holo-hint{font:500 .74rem var(--f-mono);color:var(--dim);letter-spacing:.08em;display:flex;align-items:center;gap:.5rem;margin-top:.9rem;transition:opacity .4s}
+.holo-hint b{color:var(--cyan);font-weight:500}
+.holo-hint.used{opacity:.45}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);margin-right:.4rem;box-shadow:0 0 10px var(--teal)}
+
+@media (max-width:900px){
+  .hero{min-height:auto;padding:3rem 0 4rem}
+  .hero .wrap{grid-template-columns:1fr;gap:2.5rem}
+  .stage{order:-1}
+  .holo{height:min(430px,56vh)}
+
+}
+@media (max-width:640px){
+  .holo .chip{display:none}
+}
+
+/* sections */
+section.block{padding:6rem 0;position:relative}
+.sec-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.6rem;flex-wrap:wrap}
+.sec-num{font:500 .8rem var(--f-mono);color:var(--teal)}
+h2{font:700 clamp(1.8rem,3.6vw,2.5rem)/1.1 var(--f-head);letter-spacing:-.02em}
+.sec-sub{color:var(--muted);flex-basis:100%;max-width:44rem}
+h3{font:600 1.15rem/1.3 var(--f-head)}
+
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:relative}
+.tilt{transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .3s;will-change:transform}
+.tilt:hover{border-color:var(--line-strong);box-shadow:0 30px 60px -30px rgba(0,0,0,.9),0 0 0 1px rgba(94,225,255,.08)}
+.tilt .lift{transform:translateZ(28px)}
+.panel::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(94,225,255,.09),transparent 45%)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:1.6rem}
+.about-text{padding:2rem}
+.about-text p{color:#c9d3e8;font-size:1.05rem}
+.about-text p+p{margin-top:1rem}
+.facts{padding:1.6rem;display:grid;gap:1.1rem}
+.fact{display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start}
+.fact .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:rgba(94,225,255,.08);border:1px solid var(--line);color:var(--cyan)}
+.fact dt{font:500 .72rem var(--f-mono);text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
+.fact dd{color:var(--text);font-size:.96rem}
+@media (max-width:820px){.about-grid{grid-template-columns:1fr}}
+
+/* skills */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+.skill-card{padding:1.8rem}
+.skill-card header{display:flex;align-items:center;gap:.8rem;margin-bottom:1.3rem}
+.skill-card .badge{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:#001018;background:linear-gradient(135deg,var(--cyan),var(--teal))}
+.skill-card.alt .badge{background:linear-gradient(135deg,var(--amber),#ff8f6b)}
+.tags{list-style:none;display:flex;flex-wrap:wrap;gap:.55rem}
+.tags li{padding:.5rem .8rem;border-radius:10px;font-size:.9rem;border:1px solid var(--line);background:rgba(255,255,255,.025);color:#d5def0}
+.skill-card.alt .tags li{border-color:rgba(255,184,107,.18)}
+@media (max-width:820px){.skills-grid{grid-template-columns:1fr}}
+
+/* timeline */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cyan),var(--violet) 40%,rgba(139,123,255,.1))}
+.job{position:relative;margin-bottom:1.4rem;padding:1.6rem 1.7rem}
+.job::after{content:"";position:absolute;left:calc(-2rem + 1px);top:1.9rem;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--violet)}
+.job.current::after{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 5px rgba(47,211,181,.18),0 0 16px var(--teal)}
+.job-top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline}
+.job .org{color:var(--muted);font-size:.95rem;margin-top:.15rem}
+.when{font:500 .8rem var(--f-mono);color:var(--cyan);white-space:nowrap}
+.pill{display:inline-block;margin-left:.5rem;padding:.12rem .5rem;border-radius:999px;font:500 .68rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;vertical-align:middle}
+.pill.live{background:rgba(47,211,181,.14);color:var(--teal);border:1px solid rgba(47,211,181,.35)}
+.pill.ended{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--line)}
+.job ul{margin-top:.9rem;padding-left:1.1rem;color:#c3cde2}
+.job li{margin:.3rem 0}
+.job li::marker{color:var(--teal)}
+details.earlier{margin-top:.6rem}
+details.earlier>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.1rem;border-radius:12px;border:1px solid var(--line);color:var(--muted);font-weight:500;margin-bottom:1.4rem}
+details.earlier>summary::-webkit-details-marker{display:none}
+details.earlier>summary:hover{color:var(--text);border-color:var(--line-strong)}
+details.earlier[open]>summary .chev{transform:rotate(180deg)}
+.chev{transition:transform .25s}
+
+/* projects */
+.proj-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:1.6rem}
+.proj{padding:2rem;display:flex;flex-direction:column;gap:1rem;overflow:hidden}
+.proj.feature{grid-row:span 2;background:linear-gradient(160deg,rgba(94,225,255,.08),rgba(139,123,255,.06) 60%,rgba(18,28,50,.55))}
+.proj .kicker{font:500 .74rem var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.proj p{color:#c3cde2}
+.proj ul{list-style:none;display:grid;gap:.5rem}
+.proj ul li{display:flex;gap:.6rem;color:#c9d3e8}
+.proj ul li::before{content:"";flex:none;width:6px;height:6px;margin-top:.62rem;border-radius:2px;background:var(--cyan);transform:rotate(45deg)}
+.subs{display:flex;flex-wrap:wrap;gap:.5rem}
+.subs span{padding:.4rem .75rem;border-radius:10px;font:500 .8rem var(--f-mono);background:rgba(7,11,20,.6);border:1px solid var(--line)}
+.status{display:inline-flex;align-items:center;gap:.5rem;font:500 .78rem var(--f-mono);color:var(--amber);padding:.35rem .7rem;border-radius:999px;background:rgba(255,184,107,.08);border:1px solid rgba(255,184,107,.3);width:max-content}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.cube-wrap{perspective:700px;height:150px;display:flex;align-items:center;justify-content:center;margin:.4rem 0 .2rem}
+.cube{width:80px;height:80px;position:relative;transform-style:preserve-3d;animation:spin 18s linear infinite}
+.cube div{position:absolute;inset:0;border:1px solid rgba(94,225,255,.55);background:rgba(94,225,255,.05);box-shadow:inset 0 0 20px rgba(94,225,255,.15)}
+.cube .f1{transform:translateZ(40px)}.cube .f2{transform:rotateY(180deg) translateZ(40px)}
+.cube .f3{transform:rotateY(90deg) translateZ(40px)}.cube .f4{transform:rotateY(-90deg) translateZ(40px)}
+.cube .f5{transform:rotateX(90deg) translateZ(40px)}.cube .f6{transform:rotateX(-90deg) translateZ(40px)}
+.orbit{position:absolute;width:150px;height:150px;border-radius:50%;border:1px dashed rgba(139,123,255,.35);transform:rotateX(70deg)}
+@keyframes spin{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+@media (max-width:820px){.proj-grid{grid-template-columns:1fr}.proj.feature{grid-row:auto}}
+
+/* education */
+.edu-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:1.6rem}
+.edu{padding:2rem}
+.edu .degree{font:600 1.25rem/1.3 var(--f-head);margin:.6rem 0 .3rem}
+.edu .school{color:var(--muted)}
+.cert-list{list-style:none;display:grid;gap:.75rem}
+.cert{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:center;padding:1rem 1.2rem}
+.cert .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(139,123,255,.12);color:var(--violet)}
+.cert.award .ic{background:rgba(255,184,107,.12);color:var(--amber)}
+.cert .t{font-weight:500;line-height:1.35}
+.cert .s{color:var(--dim);font-size:.85rem}
+.cert time{font:500 .76rem var(--f-mono);color:var(--cyan);white-space:nowrap}
+@media (max-width:820px){.edu-grid{grid-template-columns:1fr}.cert{grid-template-columns:auto 1fr}.cert time{grid-column:2}}
+
+/* contact */
+.contact{padding:3rem;text-align:center;overflow:hidden}
+.contact h2{margin-bottom:.8rem}
+.contact p{color:var(--muted);max-width:34rem;margin:0 auto}
+.contact-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2rem}
+.contact-links .btn{font-family:var(--f-mono);font-weight:500;font-size:.9rem}
+footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.no-js .reveal{opacity:1;transform:none}
+
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+/* fallback when 3D transforms unsupported */
+@supports not (transform-style:preserve-3d){.cube-wrap{display:none}}
+</style>
+</head>
+<body class="no-js">
+<a class="skip" href="#main">Skip to content</a>
+<div class="floor" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Leomar Montesa, home"><span class="brand-mark" aria-hidden="true">LM</span>Leomar Montesa</a>
+    <button class="menu-btn" aria-controls="nav-list" aria-expanded="false" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav aria-label="Primary">
+      <ul id="nav-list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>IT Specialist · Jeddah, Saudi Arabia</span>
+      <h1 id="hero-title"><span class="grad">Leomar Montesa</span></h1>
+      <p class="role"><b>IT Specialist</b> at Rakaiz Albaraka Corporate Hub</p>
+      <p class="lead">BSIT graduate with over 10 years of experience in IT and technology support, from hands-on support and coordination to administering servers, networks, ERP and day-to-day IT operations. Currently working on website deployment for the holding company and its subsidiary companies.</p>
+      <div class="cta">
+        <a class="btn primary" href="#experience">View experience
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <div class="meta">
+        <span>10+ yrs in IT &amp; tech support</span>
+        <span>BS Information Technology</span>
+        <span>EN · TL · AR (basic)</span>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="holo" id="holo" tabindex="0" role="slider" aria-label="Rotatable hologram portrait of Leomar Montesa. Drag, swipe or use the arrow keys to rotate." aria-valuemin="0" aria-valuemax="359" aria-valuenow="0" aria-valuetext="Front view">
+        <div class="beam" aria-hidden="true"></div>
+        <div class="pad" aria-hidden="true"><i></i><i></i></div>
+        <div class="fig"><img class="holo-static" src="__N0__" width="440" height="640" alt="Leomar Montesa, front view"></div>
+        <div class="holo-frames" aria-hidden="true"><img data-h src="__F0__" alt=""><img data-h src="__F1__" alt=""><img data-h src="__F2__" alt=""><img data-h src="__F3__" alt=""><img data-h src="__F4__" alt=""><img data-h src="__F5__" alt=""><img data-n src="__N1__" alt=""><img data-n src="__N2__" alt=""><img data-n src="__N3__" alt=""><img data-n src="__N4__" alt=""><img data-n src="__N5__" alt=""></div>
+        <div class="readout" aria-hidden="true">000&deg; · Front</div>
+        <div class="chip c1" aria-hidden="true"><small>Now</small>IT Specialist</div>
+        <div class="chip c2" aria-hidden="true"><small>Since</small>25 Oct 2026</div>
+      </div>
+      <p class="holo-hint" aria-hidden="true"><b>&#x27F2;</b> Drag to rotate</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="block" id="about" aria-labelledby="about-title">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">01</span><h2 id="about-title">About</h2></div>
+    <div class="about-grid">
+      <div class="panel tilt about-text reveal">
+        <p>I'm a BSIT graduate with over 10 years of experience in IT and technology support. I started in sales and administration before focusing on IT, progressing from IT Support to IT Coordinator and IT Administrator.</p>
+        <p>At Electro Power Systems I managed servers, networks, ERP, IT equipment and overall IT operations. Since October 2026 I have been an IT Specialist at Rakaiz Albaraka Corporate Hub, where I'm working on website deployment for the holding company and its subsidiaries.</p>
+        <p>I'm skilled in troubleshooting, system administration and coordinating IT projects.</p>
+      </div>
+      <dl class="panel tilt facts reveal">
+        <div class="fact">
+          <span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <div><dt>Location</dt><dd>Jeddah, Saudi Arabia</dd></div>
+        </div>
+        <div class="fact">
+          <span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+          <div><dt>Current role</dt><dd>IT Specialist, Rakaiz Albaraka Corporate Hub</dd></div>
+        </div>
+        <div class="fact">
+          <span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+          <div><dt>Languages</dt><dd>English · Tagalog · Arabic (Basic)</dd></div>
+        </div>
+        <div class="fact">
+          <span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.2"/><path d="M14 10h4M14 14h3"/></svg></span>
+          <div><dt>Driver's licence</dt><dd>KSA · Philippines</dd></div>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="block" id="skills" aria-labelledby="skills-title">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">02</span><h2 id="skills-title">Skills &amp; expertise</h2></div>
+    <div class="skills-grid">
+      <article class="panel tilt skill-card reveal">
+        <header class="lift">
+          <span class="badge" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg></span>
+          <h3>Technical &amp; IT expertise</h3>
+        </header>
+        <ul class="tags">
+          <li>IT infrastructure</li>
+          <li>ERP administrator / focal point</li>
+          <li>Network &amp; system security</li>
+          <li>IT support</li>
+          <li>IT projects &amp; upgrades</li>
+          <li>Backup procedures &amp; disaster recovery plans</li>
+          <li>Software subscriptions</li>
+          <li>Web hosting</li>
+        </ul>
+      </article>
+      <article class="panel tilt skill-card alt reveal">
+        <header class="lift">
+          <span class="badge" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg></span>
+          <h3>Administrative &amp; operational expertise</h3>
+        </header>
+        <ul class="tags">
+          <li>IT asset procurement &amp; setup</li>
+          <li>Finance operations</li>
+          <li>IT training sessions</li>
+          <li>Inventory management</li>
+          <li>MS Office</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="block" id="experience" aria-labelledby="exp-title">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">03</span><h2 id="exp-title">Work experience</h2></div>
+    <ol class="timeline" style="list-style:none">
+      <li class="panel tilt job current reveal">
+        <div class="job-top">
+          <div><h3>IT Specialist <span class="pill live">Current</span></h3><p class="org">Rakaiz Albaraka Corporate Hub · Holding company</p></div>
+          <span class="when"><time datetime="2026-10-25">25 Oct 2026</time> – Present</span>
+        </div>
+        <ul>
+          <li>Working on website deployment for the holding company and its subsidiary companies.</li>
+        </ul>
+      </li>
+      <li class="panel tilt job reveal">
+        <div class="job-top">
+          <div><h3>IT Administrator <span class="pill ended">Ended</span></h3><p class="org">Electro Power Systems · Jeddah, KSA</p></div>
+          <span class="when"><time datetime="2024-09">Sep 2024</time> – <time datetime="2026-10-22">22 Oct 2026</time></span>
+        </div>
+        <ul>
+          <li>Managed and maintained company IT infrastructure, including servers, network and security systems.</li>
+          <li>Served as ERP focal point and administrator, resolving issues and coordinating with vendors for fixes.</li>
+          <li>Troubleshot hardware, software and network issues to keep operations running smoothly.</li>
+          <li>Installed, configured and deployed laptops, desktops, telephones, printers and other IT equipment for employees and projects.</li>
+          <li>Monitored backup systems and maintained data integrity.</li>
+          <li>Administered user accounts, software subscriptions and IT security.</li>
+          <li>Coordinated with hosting providers to resolve email and website issues.</li>
+        </ul>
+      </li>
+      <li class="panel tilt job reveal">
+        <div class="job-top">
+          <div><h3>IT Coordinator</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div>
+          <span class="when"><time datetime="2022-06">Jun 2022</time> – <time datetime="2024-09">Sep 2024</time></span>
+        </div>
+        <ul>
+          <li>Oversaw installation, configuration and maintenance of hardware, software and network systems.</li>
+          <li>Monitored system performance, troubleshot issues, and supported IT projects and upgrades.</li>
+          <li>Managed network infrastructure (routers, switches, firewalls) and IT equipment procurement for new locations.</li>
+          <li>Conducted staff training and served as primary contact for IT support and inquiries.</li>
+          <li>Maintained backup procedures and disaster recovery plans.</li>
+          <li>Provided IT support to Finance during stocktakes and month-end processes.</li>
+        </ul>
+      </li>
+      <li class="panel tilt job reveal">
+        <div class="job-top">
+          <div><h3>IT Support / Regional Admin</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div>
+          <span class="when"><time datetime="2018-11">Nov 2018</time> – <time datetime="2022-06">Jun 2022</time></span>
+        </div>
+        <ul>
+          <li>Diagnosed and resolved hardware, software and network issues.</li>
+          <li>Installed, configured and updated IT systems and components.</li>
+          <li>Managed user accounts, permissions and system maintenance.</li>
+          <li>Oversaw regional budget, staff timekeeping and administrative tasks.</li>
+          <li>Organized meetings and training sessions; supported Finance during stocktakes and month-end activities.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <details class="earlier reveal">
+      <summary>Earlier career: operations, administration &amp; retail (2012–2018)
+        <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <ol class="timeline" style="list-style:none">
+        <li class="panel job">
+          <div class="job-top">
+            <div><h3>Warehouse Supervisor</h3><p class="org">Talavera Corporation · Roxas, Isabela, Philippines</p></div>
+            <span class="when">Mar 2018 – Nov 2018</span>
+          </div>
+          <ul><li>Supervised and managed warehouse personnel, including training and scheduling; oversaw receiving, storing and shipping of goods; documented and resolved warehouse issues and incidents.</li></ul>
+        </li>
+        <li class="panel job">
+          <div class="job-top">
+            <div><h3>Store Administrator</h3><p class="org">Petromin Corporation · Jeddah, KSA</p></div>
+            <span class="when">Aug 2015 – Aug 2017</span>
+          </div>
+          <ul><li>Handled filing, data entry and record maintenance; prepared store reports on sales, inventory and staff performance; coordinated stock orders with suppliers; processed transactions, receipts and expenses; supported visual merchandising.</li></ul>
+        </li>
+        <li class="panel job">
+          <div class="job-top">
+            <div><h3>Store Manager</h3><p class="org">Odyssey Music &amp; Video · Ortigas City, Philippines</p></div>
+            <span class="when">Jul 2014 – Jul 2015</span>
+          </div>
+          <ul><li>Drove sales through promotional strategies; trained staff and maintained customer service standards; managed cash handling, daily sales reconciliation, in-store promotions and store administration.</li></ul>
+        </li>
+        <li class="panel job">
+          <div class="job-top">
+            <div><h3>Store Supervisor</h3><p class="org">Greentelecom &amp; Blue Technology · Ortigas City &amp; Laguna, Philippines</p></div>
+            <span class="when">Jul 2012 – Jul 2014</span>
+          </div>
+          <ul><li>Oversaw daily store operations, sales performance, customer service, inventory, visual merchandising, cash and administrative tasks, and staff training and supervision.</li></ul>
+        </li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="block" id="projects" aria-labelledby="proj-title">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">04</span><h2 id="proj-title">Featured work</h2>
+      <p class="sec-sub">Current work and selected responsibilities from my roles.</p></div>
+    <div class="proj-grid">
+      <article class="panel tilt proj feature reveal">
+        <span class="status lift"><i aria-hidden="true"></i>In progress</span>
+        <div class="cube-wrap" aria-hidden="true"><div class="orbit"></div><div class="cube"><div class="f1"></div><div class="f2"></div><div class="f3"></div><div class="f4"></div><div class="f5"></div><div class="f6"></div></div></div>
+        <span class="kicker">Rakaiz Albaraka Corporate Hub · 2026–</span>
+        <h3>Website deployment for the holding company &amp; subsidiaries</h3>
+        <p>As IT Specialist, I'm working on deploying websites for the holding company and its subsidiary companies. This work is ongoing.</p>
+        <div>
+          <p class="kicker" style="margin-bottom:.6rem">Companies in scope</p>
+          <div class="subs">
+            <span>Rakaiz Albaraka (holding)</span><span>Payinn KSA</span><span>Günaydin Coffee &amp; Bakery</span><span>PUZZLE KSA</span><span>MUZZON</span>
+          </div>
+        </div>
+      </article>
+      <article class="panel tilt proj reveal">
+        <span class="kicker">Electro Power Systems · 2024–2026</span>
+        <h3>ERP focal point &amp; administration</h3>
+        <ul>
+          <li>Served as ERP focal point and administrator.</li>
+          <li>Resolved ERP issues and coordinated with vendors for fixes.</li>
+        </ul>
+      </article>
+      <article class="panel tilt proj reveal">
+        <span class="kicker">Petromin Corporation · 2022–2024</span>
+        <h3>IT setup for new locations</h3>
+        <ul>
+          <li>Managed network infrastructure: routers, switches and firewalls.</li>
+          <li>Handled IT equipment procurement for new locations.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="block" id="education" aria-labelledby="edu-title">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">05</span><h2 id="edu-title">Education &amp; certifications</h2></div>
+    <div class="edu-grid">
+      <article class="panel tilt edu reveal">
+        <span class="kicker mono" style="color:var(--dim);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase">Education</span>
+        <p class="degree lift">Bachelor of Science in Information Technology</p>
+        <p class="school">Isabela State University, Roxas Campus</p>
+        <p class="when" style="margin-top:.8rem;display:block">2006 – 2010</p>
+      </article>
+      <ul class="cert-list">
+        <li class="panel cert award reveal">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg></span>
+          <div><p class="t">Outstanding Employee</p><p class="s">Petromin Corporation</p></div><time>2022</time>
+        </li>
+        <li class="panel cert reveal">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg></span>
+          <div><p class="t">Microsoft Cybersecurity Course: Security, Compliance, and Identity Fundamentals</p></div><time>Nov 2025</time>
+        </li>
+        <li class="panel cert reveal">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+          <div><p class="t">Installing and Configuring Computer Systems</p></div><time>Oct 2025</time>
+        </li>
+        <li class="panel cert reveal">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M12 12l-5.5 5.5M12 12l5.5 5.5"/></svg></span>
+          <div><p class="t">Setting Up Computer Networks</p></div><time>Oct 2025</time>
+        </li>
+        <li class="panel cert reveal">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4"/></svg></span>
+          <div><p class="t">Introduction to CSS</p></div><time>Oct 2025</time>
+        </li>
+        <li class="panel cert reveal">
+          <span class="ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><rect x="7" y="7" width="10" height="10" rx="2"/></svg></span>
+          <div><p class="t">Microsoft Artificial Intelligence Course (Azure AI Fundamentals)</p><p class="s">Technical Education and Skills Development Authority (TESDA)</p></div><time>Aug 2025</time>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="block" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="panel contact reveal">
+      <span class="eyebrow" style="justify-content:center"><span class="dot" aria-hidden="true"></span>Contact</span>
+      <h2 id="contact-title" style="margin-top:.8rem">Let's connect</h2>
+      <p>Based in Jeddah, Saudi Arabia. Reach me by phone or on LinkedIn.</p>
+      <div class="contact-links">
+        <a class="btn" href="tel:+966581769001" aria-label="Call +966 58176 9001">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+          +966-58176-9001</a>
+        <a class="btn primary" href="https://www.linkedin.com/in/leomar-montesa-568159200/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg>
+          LinkedIn profile</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© <span id="yr">2026</span> Leomar Montesa · IT Specialist · Jeddah, Saudi Arabia</div></footer>
+
+<script>
+(function(){
+  document.body.classList.remove('no-js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* mobile menu */
+  var btn = document.querySelector('.menu-btn'), list = document.getElementById('nav-list');
+  btn.addEventListener('click', function(){
+    var open = list.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  list.addEventListener('click', function(e){ if(e.target.tagName === 'A'){ list.classList.remove('open'); btn.setAttribute('aria-expanded','false'); } });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && list.classList.contains('open')){ list.classList.remove('open'); btn.setAttribute('aria-expanded','false'); btn.focus(); } });
+
+  /* reveal on scroll + active nav */
+  var links = {}; list.querySelectorAll('a').forEach(function(a){ links[a.getAttribute('href').slice(1)] = a; });
+  if('IntersectionObserver' in window){
+    var ro = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } }); }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ ro.observe(el); });
+    var so = new IntersectionObserver(function(es){ es.forEach(function(e){
+      var a = links[e.target.id]; if(!a) return;
+      if(e.isIntersecting){ Object.values(links).forEach(function(x){ x.removeAttribute('aria-current'); }); a.setAttribute('aria-current','true'); }
+    }); }, {rootMargin:'-45% 0px -50% 0px'});
+    document.querySelectorAll('main section[id]').forEach(function(s){ so.observe(s); });
+  } else { document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
+
+  /* 3D tilt (fine pointers, motion allowed) */
+  if(finePointer && !reduce){
+    document.querySelectorAll('.tilt').forEach(function(el){
+      el.addEventListener('pointermove', function(e){
+        var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        el.style.transform = 'perspective(900px) rotateX(' + ((.5 - y) * 5).toFixed(2) + 'deg) rotateY(' + ((x - .5) * 6).toFixed(2) + 'deg)';
+        el.style.setProperty('--mx', (x*100)+'%'); el.style.setProperty('--my', (y*100)+'%');
+      });
+      el.addEventListener('pointerleave', function(){ el.style.transform = ''; });
+    });
+
+  }
+
+
+  /* Hologram portrait: multi-view (2.5D) rotation + true-3D particle orbits */
+  (function(){
+    var host = document.getElementById('holo'), figBox = host.querySelector('.fig'), still = host.querySelector('.holo-static');
+    var imgsH = [].slice.call(host.querySelectorAll('.holo-frames img[data-h]')), imgsN = [still].concat([].slice.call(host.querySelectorAll('.holo-frames img[data-n]'))), imgs = imgsH.concat(imgsN);
+    var ANG = [0,45,90,180,270,315], NAMES = ['Front','Front-right','Right side','Back','Left side','Front-left'];
+    var readout = host.querySelector('.readout'), hint = document.querySelector('.holo-hint');
+    var cv = document.createElement('canvas'); if(!cv.getContext) return;
+    var W = 440, H = 640, S = 2; cv.width = W*S; cv.height = H*S; cv.setAttribute('aria-hidden','true');
+    var ctx = cv.getContext('2d'), oc = document.createElement('canvas'); oc.width = W; oc.height = H; var o = oc.getContext('2d');
+    var nc = document.createElement('canvas'); nc.width = W; nc.height = H; var nx = nc.getContext('2d'), clearStart = reduce ? -1e9 : 1e12, CLEAR = 1000, isClear = false;
+    var ln = document.createElement('canvas'); ln.width = 2; ln.height = 3; var lc = ln.getContext('2d'); lc.fillStyle = 'rgba(0,12,28,.32)'; lc.fillRect(0,0,2,1);
+    var pat = o.createPattern(ln,'repeat');
+    /* 3D particle orbits around the figure's vertical axis */
+    var P = [], NP = 54;
+    for(var k=0;k<NP;k++){ var ring = k % 3; P.push({a: Math.random()*6.283, r: [.40,.47,.36][ring], y: [.30,.55,.78][ring], tilt: [.10,-.08,.06][ring], s: .6 + Math.random()*1.1}); }
+    var angle = 0, vel = 0, dragging = false, lastX = 0, lastInput = -1e9, running = false, raf, visible = false, booted = reduce, bootStart = 0, glitchUntil = 0, nextGlitch = 4000, interacted = false;
+    var BOOT = 1900, strips = [];
+    for(var q=0;q<H/8;q++) strips.push((Math.random()-.5)*2);
+    function sstep(a,b,x){ x = Math.min(1,Math.max(0,(x-a)/(b-a))); return x*x*(3-2*x); }
+    function norm(a){ return ((a % 360) + 360) % 360; }
+    function views(a){ /* find bracketing reference angles */
+      for(var i=0;i<ANG.length;i++){ var a0 = ANG[i], a1 = i+1 < ANG.length ? ANG[i+1] : 360;
+        if(a >= a0 && a < a1) return [i, (i+1) % ANG.length, (a-a0)/(a1-a0), a1-a0]; }
+      return [0,1,0,45];
+    }
+    function particles(a, front, t, alpha){
+      var rot = a*Math.PI/180 + t*.00012;
+      for(var k=0;k<NP;k++){ var p = P[k], th = p.a + rot, z = Math.cos(th), x = Math.sin(th);
+        if((z > 0) !== front) continue;
+        var px = W/2 + x*p.r*W*1.05, py = p.y*H + z*p.tilt*H, d = .45 + .55*(z+1)/2;
+        ctx.fillStyle = 'rgba(150,235,255,' + (alpha*d*.75).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(px, py, p.s*d*(front ? 1.3 : .9), 0, 6.283); ctx.fill(); }
+    }
+    function compose(c, set, v, w, sx){
+      c.globalCompositeOperation = 'source-over'; c.clearRect(0,0,W,H);
+      c.save(); c.translate(W/2,0); c.scale(sx,1); c.translate(-W/2,0);
+      if(w < 1){ c.globalAlpha = 1 - w; c.drawImage(set[v[0]],0,0,W,H); }
+      if(w > 0){ c.globalAlpha = w; c.drawImage(set[v[1]],0,0,W,H); }
+      c.restore(); c.globalAlpha = 1;
+    }
+    function render(t){
+      var a = norm(angle), v = views(a), w = sstep(.2,.8,v[2]), sx = 1 - (v[3] > 45 ? .2 : .1)*Math.sin(Math.PI*v[2]);
+      var mat = sstep(0,1,(t - clearStart)/CLEAR); /* 0 = hologram, 1 = clear photo */
+      var bp = booted ? 1 : Math.min(1,(t - bootStart)/BOOT), reveal = sstep(.12,.82,bp), settle = sstep(.35,1,bp);
+      if(mat > 0) compose(nx, imgsN, v, w, sx);
+      if(mat < 1){
+      compose(o, imgsH, v, w, sx); o.globalCompositeOperation = 'source-atop';
+      o.fillStyle = pat; o.fillRect(0,0,W,H);
+      if(!reduce){
+        var y = ((t/3600) % 1.5 - .25)*H, g = o.createLinearGradient(0,y-60,0,y+60);
+        g.addColorStop(0,'rgba(190,248,255,0)'); g.addColorStop(.5,'rgba(205,250,255,' + (dragging ? .38 : .24) + ')'); g.addColorStop(1,'rgba(190,248,255,0)');
+        o.fillStyle = g; o.fillRect(0,y-60,W,120);
+      }
+      if(bp < 1){ o.fillStyle = 'rgba(210,250,255,' + (.55*(1-settle)).toFixed(3) + ')'; o.fillRect(0,0,W,H); }
+      }
+      ctx.setTransform(S,0,0,S,0,0); ctx.clearRect(0,0,W,H);
+      var pa = (booted ? 1 : sstep(.5,1,bp)) * (1 - .45*mat);
+      particles(a, false, t, pa);
+      var flick = (reduce || mat > 0) ? 1 : (bp < 1 ? .55 + .45*settle*(Math.random()*.3+.7) : .93 + Math.random()*.07);
+      ctx.globalAlpha = flick;
+      var cut = H*(1 - reveal); /* scan reveals from base upward */
+      if(mat >= 1){ ctx.drawImage(nc,0,0); }
+      else if(mat > 0){ /* materialize: clear photo sweeps down over the hologram */
+        var ly = H*mat;
+        ctx.save(); ctx.beginPath(); ctx.rect(0,0,W,ly); ctx.clip(); ctx.drawImage(nc,0,0); ctx.restore();
+        ctx.save(); ctx.beginPath(); ctx.rect(0,ly,W,H-ly); ctx.clip(); ctx.drawImage(oc,0,0); ctx.restore();
+        var mg = ctx.createLinearGradient(0,0,W,0);
+        mg.addColorStop(0,'rgba(94,225,255,0)'); mg.addColorStop(.5,'rgba(230,253,255,.9)'); mg.addColorStop(1,'rgba(94,225,255,0)');
+        ctx.fillStyle = mg; ctx.fillRect(W*.06,ly-1.5,W*.88,3);
+        ctx.fillStyle = 'rgba(94,225,255,.10)'; ctx.fillRect(W*.06,ly-16,W*.88,32);
+      }
+      else if(bp < 1){
+        for(var r=0;r<strips.length;r++){ var sy = r*8; if(sy + 8 < cut) continue;
+          var off = strips[r]*36*(1-settle); ctx.drawImage(oc,0,sy,W,8,off,sy,W,8); }
+        if(reveal < 1){ var lg = ctx.createLinearGradient(0,0,W,0);
+          lg.addColorStop(0,'rgba(94,225,255,0)'); lg.addColorStop(.5,'rgba(220,252,255,.95)'); lg.addColorStop(1,'rgba(94,225,255,0)');
+          ctx.globalAlpha = 1; ctx.fillStyle = lg; ctx.fillRect(W*.08,cut-1.5,W*.84,3);
+          ctx.fillStyle = 'rgba(94,225,255,.12)'; ctx.fillRect(W*.08,cut-14,W*.84,28); }
+      } else if(!reduce && t < glitchUntil){
+        var yy = 0; while(yy < H){ var h = 10 + Math.random()*50, off2 = Math.random() < .25 ? (Math.random()-.5)*12 : 0; ctx.drawImage(oc,0,yy,W,h,off2,yy,W,h); yy += h; }
+      } else ctx.drawImage(oc,0,0);
+      ctx.globalAlpha = 1;
+      particles(a, true, t, pa);
+      var deg = Math.round(a) % 360, near = 0, best = 999;
+      ANG.concat([360]).forEach(function(x,i){ var d = Math.abs(a - x); if(d < best){ best = d; near = i % ANG.length; } });
+      host.setAttribute('aria-valuenow', deg); host.setAttribute('aria-valuetext', NAMES[near] + ' view');
+      readout.textContent = ('00' + deg).slice(-3) + '° · ' + NAMES[near];
+      if(!booted && bp >= 1){ booted = true; clearStart = t + 450; }
+      if(mat >= 1 && !isClear){ isClear = true; host.classList.add('clear'); }
+    }
+    function frame(t){
+      raf = requestAnimationFrame(frame);
+      if(!dragging){
+        if(Math.abs(vel) > .05){ angle += vel; vel *= .92; }
+        else if(booted && t - lastInput > 3000){ /* idle: ease back toward the front and sway gently */
+          var base = Math.round(angle/360)*360, target = base + 14*Math.sin(t/2400);
+          angle += (target - angle)*.025;
+        }
+      }
+      if(booted && !isClear && t > nextGlitch){ glitchUntil = t + 90; nextGlitch = t + 5000 + Math.random()*5000; }
+      render(t);
+    }
+    function start(){ if(!running && !reduce && visible && !document.hidden){ running = true; raf = requestAnimationFrame(frame); } }
+    function stop(){ running = false; cancelAnimationFrame(raf); }
+    function draw(){ if(!running) render(performance.now()); }
+    function power(){ if(host.classList.contains('on')) return; host.classList.add('on'); bootStart = performance.now() + 250; draw(); start(); }
+    function touch(){ lastInput = performance.now(); if(!interacted){ interacted = true; hint && hint.classList.add('used'); } }
+    function init(){
+      still.style.display = 'none'; figBox.appendChild(cv);
+      host.addEventListener('pointerdown', function(e){ dragging = true; lastX = e.clientX; vel = 0; host.classList.add('dragging','active'); touch(); try{ host.setPointerCapture(e.pointerId); }catch(_){} });
+      host.addEventListener('pointermove', function(e){ if(!dragging) return; var d = (e.clientX - lastX)*.55; lastX = e.clientX; angle += d; vel = d; touch(); draw(); });
+      function end(){ if(!dragging) return; dragging = false; host.classList.remove('dragging'); if(!host.matches(':hover') && document.activeElement !== host) host.classList.remove('active'); if(reduce) vel = 0; touch(); }
+      host.addEventListener('pointerup', end); host.addEventListener('pointercancel', end);
+      host.addEventListener('pointerenter', function(e){ if(e.pointerType === 'mouse') host.classList.add('active'); });
+      host.addEventListener('pointerleave', function(){ if(!dragging && document.activeElement !== host) host.classList.remove('active'); });
+      host.addEventListener('focus', function(){ host.classList.add('active'); });
+      host.addEventListener('blur', function(){ host.classList.remove('active'); });
+      host.addEventListener('keydown', function(e){
+        var k = e.key; if(k === 'ArrowRight' || k === 'ArrowUp') angle += 15; else if(k === 'ArrowLeft' || k === 'ArrowDown') angle -= 15;
+        else if(k === 'Home') angle = 0; else if(k === 'End') angle = 180; else return;
+        e.preventDefault(); vel = 0; touch(); draw();
+      });
+      if(reduce){ host.classList.add('on'); draw(); return; }
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(es){ visible = es[0].isIntersecting; if(visible){ power(); start(); } else stop(); }, {threshold:.25}).observe(host);
+      } else { visible = true; power(); }
+      document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+    }
+    var n = 0; function loaded(){ if(++n === imgs.length) init(); }
+    imgs.forEach(function(i){ if(i.complete && i.naturalWidth) loaded(); else { i.addEventListener('load', loaded); i.addEventListener('error', function(){}); } });
+  })();
+
+  /* hero network globe (canvas 2D, projected 3D points) */
+  var cv = document.getElementById('net'), ctx = cv.getContext && cv.getContext('2d');
+  var lowPower = (navigator.connection && navigator.connection.saveData) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2);
+  if(!ctx || lowPower){ cv.style.display = 'none'; return; }
+  var dpr = Math.min(window.devicePixelRatio || 1, 2), W, H, pts = [], N, edges = [], rotY = 0, rotX = .35, tx = 0, ty = 0, running = false, visible = true, raf;
+  function build(){
+    N = W < 700 ? 90 : 150; pts = [];
+    var g = Math.PI * (3 - Math.sqrt(5));
+    for(var i=0;i<N;i++){ var y = 1 - (i/(N-1))*2, r = Math.sqrt(1-y*y), t = g*i; pts.push([Math.cos(t)*r, y, Math.sin(t)*r]); }
+    edges = [];
+    for(var a=0;a<N;a++) for(var b=a+1;b<N;b++){ var dx=pts[a][0]-pts[b][0], dy=pts[a][1]-pts[b][1], dz=pts[a][2]-pts[b][2]; if(dx*dx+dy*dy+dz*dz < (W<700?.12:.075)) edges.push([a,b]); }
+  }
+  function size(){
+    var r = cv.getBoundingClientRect(); W = r.width; H = r.height;
+    cv.width = W*dpr; cv.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); build(); if(!running) draw();
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var R = Math.min(W,H) * (W < 900 ? .42 : .38), cx = W < 900 ? W*.5 : W*.74, cy = H*.5;
+    var cY = Math.cos(rotY + tx), sY = Math.sin(rotY + tx), cX = Math.cos(rotX + ty), sX = Math.sin(rotX + ty), proj = [];
+    for(var i=0;i<N;i++){
+      var p = pts[i], x = p[0]*cY - p[2]*sY, z = p[0]*sY + p[2]*cY, y = p[1]*cX - z*sX; z = p[1]*sX + z*cX;
+      var s = 2.6/(2.6+z); proj.push([cx + x*R*s, cy + y*R*s, z]);
+    }
+    ctx.lineWidth = 1;
+    for(var e=0;e<edges.length;e++){
+      var A = proj[edges[e][0]], B = proj[edges[e][1]], d = (2 - (A[2]+B[2])/2)/3;
+      ctx.strokeStyle = 'rgba(94,225,255,' + (d*.22).toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(A[0],A[1]); ctx.lineTo(B[0],B[1]); ctx.stroke();
+    }
+    for(var j=0;j<N;j++){
+      var q = proj[j], k = (1.2 - q[2])/2.2;
+      ctx.fillStyle = j % 11 === 0 ? 'rgba(255,184,107,' + (k*.9).toFixed(3) + ')' : 'rgba(180,235,255,' + (k*.8).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(q[0], q[1], 1 + k*1.6, 0, 6.283); ctx.fill();
+    }
+  }
+  var last = 0;
+  function loop(t){
+    raf = requestAnimationFrame(loop);
+    if(t - last < 33) return; last = t; /* ~30fps cap */
+    rotY += .0022; draw();
+  }
+  function start(){ if(!running && !reduce && visible && !document.hidden){ running = true; raf = requestAnimationFrame(loop); } }
+  function stop(){ running = false; cancelAnimationFrame(raf); }
+  size();
+  var rs; window.addEventListener('resize', function(){ clearTimeout(rs); rs = setTimeout(size, 150); });
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ visible = es[0].isIntersecting; visible ? start() : stop(); }).observe(cv);
+  }
+  document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+  if(finePointer && !reduce){
+    document.querySelector('.hero').addEventListener('pointermove', function(e){ tx = (e.clientX / W - .5) * .5; ty = (e.clientY / H - .5) * .3; });
+  }
+  start();
+})();
+</script>
+</body>
+</html>
