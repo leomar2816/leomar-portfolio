@@ -25,6 +25,7 @@ For GitHub Pages, go to Settings → Pages → Deploy from a branch, and choose 
 
 - A responsive layout with a dark, futuristic theme, subtle 3D card tilt and a 3D network background.
 - A rotatable 2.5D portrait built from six reference photos. A hologram power-on sequence resolves into the clear photo, and visitors can drag, swipe or use the arrow keys to rotate it.
+- An intro-first homepage: the menu and the other sections stay hidden until the visitor selects “View experience” or “Get in touch” (they remain visible without JavaScript, and a direct link to a section opens it).
 - Company logos in the experience timeline, and linked logos for each company website.
-- A typewriter text reveal from the About section onward; each block types once, when it first scrolls into view.
+- A typewriter text reveal from the Skills section onward; each block types once, when it first scrolls into view.
 - Respects `prefers-reduced-motion`, pauses animations when they are off-screen, and falls back to static content when canvas or IntersectionObserver is unavailable.
