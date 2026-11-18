@@ -10,11 +10,18 @@
 /* Show only the intro until the visitor chooses to continue. Without JS everything stays visible. */
 (function(){ var d = document.documentElement, h = location.hash.slice(1), open = false;
   try{ open = sessionStorage.getItem('lm-unlocked') === '1'; }catch(e){}
-  if(!open && !(h && h !== 'top')) d.classList.add('gated'); })();
+  if(!open && !(h && h !== 'top')) d.classList.add('gated');
+  /* saved theme and language, applied before first paint */
+  try{
+    if(localStorage.getItem('lm-theme') === 'light') d.setAttribute('data-theme','light');
+    if(localStorage.getItem('lm-lang') === 'ar'){ d.lang = 'ar'; d.dir = 'rtl'; d.classList.add('i18n-pending');
+      setTimeout(function(){ d.classList.remove('i18n-pending'); }, 2500); }
+  }catch(e){}
+  d.classList.add('js'); })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#070b14; --bg2:#0b1222; --panel:rgba(18,28,50,.55); --panel-solid:#101a2e;
@@ -22,7 +29,7 @@
   --text:#e8eefb; --muted:#9aa8c3; --dim:#6d7b96;
   --cyan:#5ee1ff; --teal:#2fd3b5; --amber:#ffb86b; --violet:#8b7bff;
   --radius:18px; --maxw:1140px;
-  --f-head:"Sora",system-ui,sans-serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --f-head:"Sora","IBM Plex Sans Arabic",system-ui,sans-serif; --f-body:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif; --f-mono:"JetBrains Mono","IBM Plex Sans Arabic",ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -34,8 +41,8 @@ a{color:var(--cyan);text-decoration:none}
 a:hover{text-decoration:underline}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.skip{position:absolute;left:-999px;top:8px;background:var(--cyan);color:#001018;padding:.6rem 1rem;border-radius:8px;z-index:100;font-weight:600}
-.skip:focus{left:8px}
+.skip{position:absolute;inset-inline-start:8px;top:8px;background:var(--cyan);color:#001018;padding:.6rem 1rem;border-radius:8px;z-index:100;font-weight:600;transform:translateY(-300%)}
+.skip:focus{transform:none}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.4rem}
 .mono{font-family:var(--f-mono)}
 
@@ -272,6 +279,67 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
 .tw-caret::after{content:"";position:absolute;left:1px;top:0;bottom:0;width:2px;border-radius:1px;background:var(--cyan);box-shadow:0 0 6px rgba(94,225,255,.8);animation:twblink .8s steps(1) infinite}
 @keyframes twblink{50%{opacity:0}}
 
+/* ---------- header tools: language + theme ---------- */
+.nav-right{display:flex;align-items:center;gap:1.4rem}
+.nav-tools{display:flex;align-items:center;gap:.5rem}
+.lang-switch{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:2px;background:rgba(127,140,170,.06)}
+.lang-switch button{font:600 .78rem var(--f-body);color:var(--muted);background:none;border:0;border-radius:8px;padding:.38rem .6rem;cursor:pointer;min-width:2.4rem;line-height:1.2}
+.lang-switch button[lang="ar"]{font-family:"IBM Plex Sans Arabic",var(--f-body);font-size:.84rem}
+.lang-switch button[aria-pressed="true"]{background:linear-gradient(135deg,var(--cyan),var(--teal));color:#001018}
+.lang-switch button:not([aria-pressed="true"]):hover{color:var(--text)}
+.theme-btn{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:rgba(127,140,170,.06);color:var(--text);cursor:pointer}
+.theme-btn:hover{border-color:var(--line-strong)}
+.theme-btn .i-sun{display:none}
+[data-theme="light"] .theme-btn .i-sun{display:block}[data-theme="light"] .theme-btn .i-moon{display:none}
+@media (max-width:820px){.nav-right{gap:.5rem}.nav-right nav{order:3}}
+@media (max-width:380px){.lang-switch button{padding:.34rem .45rem;min-width:2.1rem}.theme-btn{width:36px;height:36px}}
+.btn .ic-dl{flex:none}
+
+/* ---------- right-to-left (Arabic) ---------- */
+html.i18n-pending body{visibility:hidden}
+[dir="rtl"] body, [dir="rtl"] body *{letter-spacing:0!important}
+[dir="rtl"] .lead,[dir="rtl"] .job ul,[dir="rtl"] .proj p{line-height:1.85}
+[dir="rtl"] .stage-title{font-size:.86rem}
+[dir="rtl"] .holo-info .chip{font-size:.84rem}
+[dir="rtl"] .holo-info .chip small{font-size:.72rem}
+[dir="rtl"] .when,[dir="rtl"] .cert time,[dir="rtl"] .kicker,[dir="rtl"] .sec-num{font-size:.84rem}
+[dir="rtl"] .timeline{padding-left:0;padding-right:2rem}
+[dir="rtl"] .timeline::before{left:auto;right:7px}
+[dir="rtl"] .job::after{left:auto;right:calc(-2rem + 1px)}
+[dir="rtl"] .job ul{padding-left:0;padding-right:1.1rem}
+[dir="rtl"] .btn svg:not(.ic-dl):not(.ic-keep){transform:scaleX(-1)}
+[dir="rtl"] .sites .site-url svg{transform:scaleX(-1)}
+[dir="rtl"] .stage-title .dot{margin-right:0;margin-left:.55rem}
+[dir="rtl"] .contact-links .tel,[dir="rtl"] .sites .site-url{direction:ltr;unicode-bidi:isolate}
+@media (min-width:1241px){[dir="rtl"] .holo-info{left:auto;right:calc(50% + var(--hh)*.34375 - 96px);align-items:flex-end}}
+@media (max-width:820px){[dir="rtl"] .nav ul{text-align:right}}
+
+/* ---------- light theme ---------- */
+[data-theme="light"]{
+  --bg:#f3f6fb; --bg2:#e9eef7; --panel:rgba(255,255,255,.78); --panel-solid:#ffffff;
+  --line:rgba(20,45,90,.13); --line-strong:rgba(0,130,165,.38);
+  --text:#0f1b2d; --muted:#4b5b76; --dim:#66758f;
+  --cyan:#0a86a8; --teal:#0e9b83; --amber:#b86200; --violet:#5a4bd1;
+  color-scheme:light;
+}
+[data-theme="light"] body{background-image:radial-gradient(1200px 700px at 85% -10%,rgba(10,134,168,.10),transparent 60%),radial-gradient(900px 600px at -10% 30%,rgba(90,75,209,.07),transparent 60%)}
+[data-theme="light"] header.nav{background:rgba(243,246,251,.82)}
+@media (max-width:820px){[data-theme="light"] .nav ul{background:rgba(243,246,251,.98)}}
+[data-theme="light"] h1 .grad{background-image:linear-gradient(100deg,#0f1b2d 10%,var(--cyan) 58%,var(--violet))}
+[data-theme="light"] .lead{color:#33415a}
+[data-theme="light"] .tags li{background:rgba(255,255,255,.7);color:#22314a}
+[data-theme="light"] .job ul,[data-theme="light"] .proj p{color:#33415a}
+[data-theme="light"] .proj ul li{color:#2a3850}
+[data-theme="light"] .proj.feature{background:linear-gradient(160deg,rgba(10,134,168,.08),rgba(90,75,209,.06) 60%,rgba(255,255,255,.78))}
+[data-theme="light"] .panel{box-shadow:0 18px 40px -28px rgba(20,45,90,.35)}
+[data-theme="light"] .holo-info .chip,[data-theme="light"] .holo .readout{background:rgba(255,255,255,.88);box-shadow:0 14px 26px -18px rgba(20,45,90,.45)}
+[data-theme="light"] .pill.ended{background:rgba(20,45,90,.05)}
+[data-theme="light"] .logo-tile{border-color:rgba(20,45,90,.12);box-shadow:0 8px 18px -12px rgba(20,45,90,.4)}
+[data-theme="light"] .floor{opacity:.35}
+[data-theme="light"] .holo.clear canvas{filter:drop-shadow(0 0 1px rgba(10,134,168,.5)) drop-shadow(0 0 12px rgba(10,134,168,calc(var(--glow)*.35))) drop-shadow(0 22px 24px rgba(20,45,90,.35))}
+[data-theme="light"] .holo .beam{background:linear-gradient(to top,rgba(10,134,168,.22),rgba(10,134,168,.05) 55%,transparent 85%)}
+[data-theme="light"] ::selection{background:rgba(10,134,168,.2)}
+
 /* intro-only view until "View experience" is chosen */
 .gated main > section:not(.hero), .gated #nav-list, .gated .menu-btn{display:none!important}
 
@@ -292,9 +360,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="Leomar Montesa, home"><span class="brand-mark" aria-hidden="true">LM</span></a>
-    <button class="menu-btn" aria-controls="nav-list" aria-expanded="false" aria-label="Open menu">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
+    <div class="nav-right">
     <nav aria-label="Primary">
       <ul id="nav-list">
         <li><a href="#skills">Skills</a></li>
@@ -304,6 +370,20 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    <div class="nav-tools">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="ar" lang="ar" aria-pressed="false">عربي</button>
+      </div>
+      <button type="button" class="theme-btn" aria-label="Switch to light theme">
+        <svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+      </button>
+    </div>
+    <button class="menu-btn" aria-controls="nav-list" aria-expanded="false" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    </div>
   </div>
 </header>
 
@@ -318,6 +398,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
       <div class="cta">
         <a class="btn primary" href="#experience" data-unlock>View experience
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn" href="assets/Leomar-Montesa-CV.pdf" download="Leomar-Montesa-CV.pdf" type="application/pdf"><svg class="ic-dl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Download CV</span></a>
         <a class="btn" href="#contact" data-unlock>Get in touch</a>
       </div>
     </div>
@@ -563,12 +644,13 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
       <h2 id="contact-title" style="margin-top:.8rem">Let's connect</h2>
       <p>Based in Jeddah, Saudi Arabia. Reach me by phone or on LinkedIn.</p>
       <div class="contact-links">
-        <a class="btn" href="tel:+966581769001" aria-label="Call +966 58176 9001">
+        <a class="btn tel" href="tel:+966581769001" aria-label="Call +966 58176 9001">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
           +966-58176-9001</a>
         <a class="btn primary" href="https://www.linkedin.com/in/leomar-montesa-568159200/" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg>
           LinkedIn profile</a>
+        <a class="btn" href="assets/Leomar-Montesa-CV.pdf" download="Leomar-Montesa-CV.pdf" type="application/pdf"><svg class="ic-dl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Download CV</span></a>
       </div>
     </div>
   </div>
@@ -592,11 +674,66 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
   window.addEventListener('hashchange', function(){ var h = location.hash.slice(1); if(h && h !== 'top') unlock(); });
   document.getElementById('yr').textContent = new Date().getFullYear();
 
+  /* ---------- language (EN / AR) and theme (dark / light) ---------- */
+  var AR = {"Skip to content": "تخطَّ إلى المحتوى", "Skills": "المهارات", "Experience": "الخبرات", "Projects": "المشاريع", "Education": "التعليم", "Contact": "التواصل", "BSIT graduate with over 10 years of experience in IT operations and technical support. At Petromin, I managed servers supporting more than 70 stores across the Kingdom and coordinated store openings. At Electropower, I served as an IT Administrator, managing the company’s IT concerns and supporting its technology operations. My expertise includes system implementation, hardware and software support, network infrastructure, ERP systems, and AI tools. In my current role as an IT Specialist, I oversee website deployments, e‑commerce platforms, applications, and ERP systems for the holding company and its subsidiaries.": "خريج بكالوريوس تقنية المعلومات بخبرة تزيد على 10 سنوات في عمليات تقنية المعلومات والدعم الفني. في بترومين، أدرتُ الخوادم التي تخدم أكثر من 70 متجرًا في أنحاء المملكة، ونسّقتُ افتتاح المتاجر. وفي إلكترو باور، عملتُ مسؤولًا لتقنية المعلومات، أتولّى شؤون تقنية المعلومات في الشركة وأدعم عملياتها التقنية. تشمل خبراتي تطبيق الأنظمة، ودعم الأجهزة والبرمجيات، والبنية التحتية للشبكات، وأنظمة تخطيط موارد المؤسسات (ERP)، وأدوات الذكاء الاصطناعي. وفي دوري الحالي أخصائيًا لتقنية المعلومات، أشرف على نشر المواقع الإلكترونية ومنصات التجارة الإلكترونية والتطبيقات وأنظمة ERP للشركة القابضة وشركاتها التابعة.", "View experience": "عرض الخبرات", "Download CV": "تحميل السيرة الذاتية", "Get in touch": "تواصل معي", "IT Specialist": "أخصائي تقنية المعلومات", "IT Administrator": "مسؤول تقنية المعلومات", "IT Coordinator": "منسّق تقنية المعلومات", "Drag to rotate": "اسحب للتدوير", "Location": "الموقع", "Jeddah, Saudi Arabia": "جدة، المملكة العربية السعودية", "Nationality": "الجنسية", "Filipino": "فلبيني", "Skills & expertise": "المهارات والخبرات", "Technical & IT expertise": "الخبرات التقنية", "IT infrastructure": "البنية التحتية لتقنية المعلومات", "ERP administration & focal point": "إدارة نظام ERP ونقطة الاتصال الرئيسية له", "Network & system security": "أمن الشبكات والأنظمة", "IT support": "الدعم الفني", "IT projects & upgrades": "مشاريع تقنية المعلومات والتحديثات", "Backup procedures & disaster recovery planning": "إجراءات النسخ الاحتياطي وتخطيط التعافي من الكوارث", "Software subscription management": "إدارة اشتراكات البرمجيات", "Web hosting": "استضافة المواقع الإلكترونية", "Administrative & operational expertise": "الخبرات الإدارية والتشغيلية", "IT asset procurement & setup": "شراء أصول تقنية المعلومات وتجهيزها", "Finance operations": "العمليات المالية", "IT training": "التدريب على تقنية المعلومات", "Inventory management": "إدارة المخزون", "MS Office": "Microsoft Office", "Work experience": "الخبرات العملية", "Current": "حالي", "Rakaiz Albaraka Corporate Hub": "ركائز البركة", "(opens in a new tab)": "(يفتح في علامة تبويب جديدة)", "· Holding company": "· شركة قابضة", "25 Oct 2026": "25 أكتوبر 2026", "– Present": "– حتى الآن", "Working on website deployment for the holding company and its subsidiaries.": "أعمل على نشر المواقع الإلكترونية للشركة القابضة وشركاتها التابعة.", "Ended": "منتهية", "Electro Power Systems · Jeddah, KSA": "إلكترو باور سيستمز · جدة، السعودية", "Sep 2024": "سبتمبر 2024", "22 Oct 2026": "22 أكتوبر 2026", "Managed and maintained the company's IT infrastructure, including servers, networks and security systems.": "أدرتُ البنية التحتية لتقنية المعلومات في الشركة وتولّيتُ صيانتها، بما في ذلك الخوادم والشبكات وأنظمة الأمن.", "Served as the ERP focal point and administrator, resolving issues and coordinating fixes with vendors.": "عملتُ نقطة الاتصال الرئيسية ومسؤولًا لنظام ERP، أعالج المشكلات وأنسّق الحلول مع المورّدين.", "Troubleshot hardware, software and network issues to keep operations running smoothly.": "شخّصتُ مشكلات الأجهزة والبرمجيات والشبكات وعالجتها لضمان سير العمليات بسلاسة.", "Installed, configured and deployed laptops, desktops, telephones, printers and other IT equipment for employees and projects.": "ثبّتُّ أجهزة الحاسب المحمولة والمكتبية والهواتف والطابعات وغيرها من معدات تقنية المعلومات، وهيّأتها ووزّعتها على الموظفين والمشاريع.", "Monitored backup systems and maintained data integrity.": "راقبتُ أنظمة النسخ الاحتياطي وحافظتُ على سلامة البيانات.", "Administered user accounts, software subscriptions and IT security.": "أدرتُ حسابات المستخدمين واشتراكات البرمجيات وأمن تقنية المعلومات.", "Coordinated with hosting providers to resolve email and website issues.": "نسّقتُ مع مزوّدي الاستضافة لحل مشكلات البريد الإلكتروني والموقع الإلكتروني.", "Petromin Corporation · Jeddah, KSA": "شركة بترومين · جدة، السعودية", "Jun 2022": "يونيو 2022", "Oversaw the installation, configuration and maintenance of hardware, software and network systems.": "أشرفتُ على تثبيت الأجهزة والبرمجيات وأنظمة الشبكات وتهيئتها وصيانتها.", "Monitored system performance, troubleshot issues and supported IT projects and upgrades.": "راقبتُ أداء الأنظمة، وعالجتُ المشكلات، ودعمتُ مشاريع تقنية المعلومات والتحديثات.", "Managed network infrastructure (routers, switches, firewalls) and IT equipment procurement for new locations.": "أدرتُ البنية التحتية للشبكات (أجهزة التوجيه والمحوّلات والجدران النارية) وشراء معدات تقنية المعلومات للفروع الجديدة.", "Conducted staff training and served as the primary contact for IT support and inquiries.": "درّبتُ الموظفين وكنتُ جهة الاتصال الرئيسية للدعم الفني والاستفسارات.", "Maintained backup procedures and disaster recovery plans.": "حافظتُ على إجراءات النسخ الاحتياطي وخطط التعافي من الكوارث.", "Provided IT support to the Finance team during stocktakes and month-end processes.": "قدّمتُ الدعم التقني للفريق المالي خلال عمليات الجرد وإقفال نهاية الشهر.", "IT Support / Regional Admin": "دعم تقنية المعلومات / مسؤول إداري إقليمي", "Nov 2018": "نوفمبر 2018", "Diagnosed and resolved hardware, software and network issues.": "شخّصتُ مشكلات الأجهزة والبرمجيات والشبكات وحللتها.", "Installed, configured and updated IT systems and components.": "ثبّتُّ أنظمة تقنية المعلومات ومكوّناتها وهيّأتها وحدّثتها.", "Managed user accounts, permissions and system maintenance.": "أدرتُ حسابات المستخدمين والصلاحيات وصيانة الأنظمة.", "Oversaw the regional budget, staff timekeeping and administrative tasks.": "أشرفتُ على الميزانية الإقليمية وسجلات حضور الموظفين والمهام الإدارية.", "Organized meetings and training sessions, and supported the Finance team during stocktakes and month-end processes.": "نظّمتُ الاجتماعات والدورات التدريبية، ودعمتُ الفريق المالي خلال عمليات الجرد وإقفال نهاية الشهر.", "Earlier career: operations, administration & retail (2012–2018)": "المسيرة المهنية السابقة: العمليات والإدارة والتجزئة (2012–2018)", "Warehouse Supervisor": "مشرف مستودع", "Talavera Corporation · Roxas, Isabela, Philippines": "شركة تالافيرا · روكساس، إيزابيلا، الفلبين", "Mar 2018 – Nov 2018": "مارس 2018 – نوفمبر 2018", "Supervised and managed warehouse personnel, including training and scheduling; oversaw the receiving, storage and shipping of goods; and documented and resolved warehouse issues and incidents.": "أشرفتُ على موظفي المستودع وأدرتُهم، بما في ذلك التدريب وجدولة المناوبات؛ وأشرفتُ على استلام البضائع وتخزينها وشحنها؛ ووثّقتُ مشكلات المستودع وحوادثه وعالجتها.", "Store Administrator": "مسؤول إداري للمتجر", "Aug 2015 – Aug 2017": "أغسطس 2015 – أغسطس 2017", "Handled filing, data entry and record maintenance; prepared store reports on sales, inventory and staff performance; coordinated stock orders with suppliers; processed transactions, receipts and expenses; and supported visual merchandising.": "تولّيتُ الأرشفة وإدخال البيانات وحفظ السجلات؛ وأعددتُ تقارير المتجر عن المبيعات والمخزون وأداء الموظفين؛ ونسّقتُ طلبات المخزون مع المورّدين؛ وعالجتُ المعاملات والإيصالات والمصروفات؛ ودعمتُ أعمال العرض المرئي للمنتجات.", "Store Manager": "مدير متجر", "Odyssey Music & Video · Ortigas City, Philippines": "Odyssey Music & Video · مدينة أورتيغاس، الفلبين", "Jul 2014 – Jul 2015": "يوليو 2014 – يوليو 2015", "Drove sales through promotional strategies; trained staff and maintained customer service standards; and managed cash handling, daily sales reconciliation, in-store promotions and store administration.": "نمّيتُ المبيعات من خلال الاستراتيجيات الترويجية؛ ودرّبتُ الموظفين وحافظتُ على معايير خدمة العملاء؛ وأدرتُ النقد والتسوية اليومية للمبيعات والعروض الترويجية داخل المتجر وإدارته.", "Store Supervisor": "مشرف متجر", "Greentelecom & Blue Technology · Ortigas City & Laguna, Philippines": "Greentelecom & Blue Technology · مدينة أورتيغاس ولاغونا، الفلبين", "Jul 2012 – Jul 2014": "يوليو 2012 – يوليو 2014", "Oversaw daily store operations, including sales performance, customer service, inventory, visual merchandising, cash handling and administration, as well as staff training and supervision.": "أشرفتُ على العمليات اليومية للمتجر، بما في ذلك أداء المبيعات وخدمة العملاء والمخزون والعرض المرئي للمنتجات والنقد والإدارة، إضافة إلى تدريب الموظفين والإشراف عليهم.", "Featured work": "أعمال مختارة", "My current work and selected highlights from earlier roles.": "عملي الحالي ومختارات من أدواري السابقة.", "Ongoing": "مستمر", "Rakaiz Albaraka Corporate Hub · 2026–": "ركائز البركة · 2026–", "Website deployment for the holding company & subsidiaries": "نشر المواقع الإلكترونية للشركة القابضة وشركاتها التابعة", "As IT Specialist, I'm working on website deployment for the holding company and its subsidiaries. Select a logo to visit each company's website.": "بصفتي أخصائي تقنية المعلومات، أعمل على نشر المواقع الإلكترونية للشركة القابضة وشركاتها التابعة. اختر شعارًا لزيارة موقع الشركة.", "Company websites": "مواقع الشركات", "Rakaiz Albaraka": "ركائز البركة", "— Holding company, opens in a new tab": "— شركة قابضة، يفتح في علامة تبويب جديدة", "— Smart self-service, opens in a new tab": "— خدمة ذاتية ذكية، يفتح في علامة تبويب جديدة", "— Coffee & Bakery, opens in a new tab": "— مقهى ومخبز، يفتح في علامة تبويب جديدة", "— Events & creative services, opens in a new tab": "— الفعاليات والخدمات الإبداعية، يفتح في علامة تبويب جديدة", "— Premium meat brand, opens in a new tab": "— علامة لحوم فاخرة، يفتح في علامة تبويب جديدة", "Electro Power Systems · 2024–2026": "إلكترو باور سيستمز · 2024–2026", "ERP focal point & administration": "نقطة الاتصال الرئيسية لنظام ERP وإدارته", "Served as the ERP focal point and administrator.": "عملتُ نقطة الاتصال الرئيسية ومسؤولًا لنظام ERP.", "Resolved ERP issues and coordinated fixes with vendors.": "عالجتُ مشكلات نظام ERP ونسّقتُ الحلول مع المورّدين.", "Petromin Corporation · 2022–2024": "شركة بترومين · 2022–2024", "IT setup for new locations": "تجهيز تقنية المعلومات للفروع الجديدة", "Managed network infrastructure, including routers, switches and firewalls.": "أدرتُ البنية التحتية للشبكات، بما في ذلك أجهزة التوجيه والمحوّلات والجدران النارية.", "Handled IT equipment procurement for new locations.": "تولّيتُ شراء معدات تقنية المعلومات للفروع الجديدة.", "Education & certifications": "التعليم والشهادات", "Bachelor of Science in Information Technology": "بكالوريوس العلوم في تقنية المعلومات", "Isabela State University, Roxas Campus": "جامعة ولاية إيزابيلا، حرم روكساس", "Outstanding Employee": "الموظف المتميز", "Petromin Corporation": "شركة بترومين", "Technical Education and Skills Development Authority (TESDA)": "هيئة التعليم التقني وتنمية المهارات (TESDA)", "Nov 2025": "نوفمبر 2025", "Oct 2025": "أكتوبر 2025", "Aug 2025": "أغسطس 2025", "Let's connect": "لنتواصل", "Based in Jeddah, Saudi Arabia. Reach me by phone or on LinkedIn.": "مقيم في جدة، المملكة العربية السعودية. تواصل معي هاتفيًا أو عبر LinkedIn.", "LinkedIn profile": "الملف الشخصي على LinkedIn", "Leomar Montesa · IT Specialist · Jeddah, Saudi Arabia": "Leomar Montesa · أخصائي تقنية المعلومات · جدة، المملكة العربية السعودية", "Leomar Montesa, home": "ليومار مونتيسا، الصفحة الرئيسية", "Open menu": "فتح القائمة", "Close menu": "إغلاق القائمة", "Primary": "التنقل الرئيسي", "Rotatable hologram portrait of Leomar Montesa. Drag, swipe or use the arrow keys to rotate.": "صورة مجسّمة قابلة للتدوير لليومار مونتيسا. اسحب أو مرّر أو استخدم مفاتيح الأسهم للتدوير.", "Leomar Montesa, front view": "ليومار مونتيسا، منظر أمامي", "Rakaiz Albaraka Corporate Hub website (opens in a new tab)": "موقع ركائز البركة (يفتح في علامة تبويب جديدة)", "Electro Power Systems logo": "شعار إلكترو باور سيستمز", "Petromin logo": "شعار بترومين", "PRIMO logo": "شعار بريمو", "Call +966 58176 9001": "اتصل على ‎+966 58176 9001", "Language": "اللغة", "Switch to light theme": "التبديل إلى المظهر الفاتح", "Switch to dark theme": "التبديل إلى المظهر الداكن", "Download CV (PDF)": "تحميل السيرة الذاتية (PDF)", "Front": "أمامي", "Front-right": "أمامي يمين", "Right side": "الجانب الأيمن", "Back": "خلفي", "Left side": "الجانب الأيسر", "Front-left": "أمامي يسار", "Front view": "منظر أمامي", "Front-right view": "منظر أمامي يمين", "Right side view": "منظر الجانب الأيمن", "Back view": "منظر خلفي", "Left side view": "منظر الجانب الأيسر", "Front-left view": "منظر أمامي يسار", "Leomar Montesa — IT Specialist": "ليومار مونتيسا — أخصائي تقنية المعلومات", "Leomar Montesa — IT Specialist in Jeddah, Saudi Arabia, with over 10 years of experience in IT infrastructure, ERP administration and technology support.": "ليومار مونتيسا — أخصائي تقنية المعلومات في جدة، المملكة العربية السعودية، بخبرة تزيد على 10 سنوات في البنية التحتية لتقنية المعلومات وإدارة أنظمة ERP والدعم التقني."};
+  var root = document.documentElement, LANG = root.lang === 'ar' ? 'ar' : 'en';
+  function T(en){ return LANG === 'ar' && AR[en] ? AR[en] : en; }
+  window.__T = T;
+  var ATTRS = ['aria-label','alt'];
+  function translateTree(){
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: function(n){
+      var p = n.parentNode; return p && !p.closest('script,style,svg') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+    var n; while((n = w.nextNode())){
+      if(n.__en === undefined){ if(!/[A-Za-z]/.test(n.nodeValue)) continue; n.__en = n.nodeValue; }
+      var en = n.__en, key = en.replace(/\s+/g,' ').trim(), m = en.match(/^(\s*)[\s\S]*?(\s*)$/);
+      var out = LANG === 'ar' && AR[key] ? m[1] + AR[key] + m[2] : en;
+      if(n.nodeValue !== out) n.nodeValue = out;
+    }
+    document.querySelectorAll('[aria-label],[alt]').forEach(function(el){
+      ATTRS.forEach(function(a){ if(!el.hasAttribute(a)) return; var k = 'data-en-' + a;
+        if(!el.hasAttribute(k)) el.setAttribute(k, el.getAttribute(a));
+        el.setAttribute(a, T(el.getAttribute(k))); });
+    });
+    var md = document.querySelector('meta[name="description"]');
+    if(md){ if(!md.dataset.en) md.dataset.en = md.content; md.content = T(md.dataset.en); }
+    if(!root.dataset.title) root.dataset.title = document.title;
+    document.title = T(root.dataset.title);
+  }
+  function setLang(lang, save){
+    if(window.__twSuspend) window.__twSuspend();
+    LANG = lang === 'ar' ? 'ar' : 'en';
+    root.lang = LANG; root.dir = LANG === 'ar' ? 'rtl' : 'ltr';
+    translateTree();
+    document.querySelectorAll('.lang-switch button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang === LANG)); });
+    syncThemeBtn();
+    if(save){ try{ localStorage.setItem('lm-lang', LANG); }catch(e){} }
+    if(window.__twResume) window.__twResume();
+    document.dispatchEvent(new CustomEvent('lm:prefs'));
+    root.classList.remove('i18n-pending');
+  }
+  var themeBtn = document.querySelector('.theme-btn');
+  function isLight(){ return root.getAttribute('data-theme') === 'light'; }
+  window.__isLight = isLight;
+  function syncThemeBtn(){
+    var en = isLight() ? 'Switch to dark theme' : 'Switch to light theme';
+    themeBtn.setAttribute('data-en-aria-label', en); themeBtn.setAttribute('aria-label', T(en));
+    var mc = document.querySelector('meta[name="theme-color"]'); if(mc) mc.content = isLight() ? '#f3f6fb' : '#070b14';
+  }
+  themeBtn.addEventListener('click', function(){
+    if(isLight()) root.removeAttribute('data-theme'); else root.setAttribute('data-theme','light');
+    try{ localStorage.setItem('lm-theme', isLight() ? 'light' : 'dark'); }catch(e){}
+    syncThemeBtn(); document.dispatchEvent(new CustomEvent('lm:prefs'));
+  });
+  document.querySelectorAll('.lang-switch button').forEach(function(b){
+    b.addEventListener('click', function(){ if(b.dataset.lang !== LANG) setLang(b.dataset.lang, true); });
+  });
+  setLang(LANG, false);
+
   /* mobile menu */
   var btn = document.querySelector('.menu-btn'), list = document.getElementById('nav-list');
   btn.addEventListener('click', function(){
     var open = list.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    btn.setAttribute('aria-expanded', open); var ml = open ? 'Close menu' : 'Open menu'; btn.setAttribute('data-en-aria-label', ml); btn.setAttribute('aria-label', T(ml));
   });
   list.addEventListener('click', function(e){ if(e.target.tagName === 'A'){ list.classList.remove('open'); btn.setAttribute('aria-expanded','false'); } });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && list.classList.contains('open')){ list.classList.remove('open'); btn.setAttribute('aria-expanded','false'); btn.focus(); } });
@@ -654,13 +791,13 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
         var wrap = document.createElement('span'), v = document.createElement('span'), h = document.createElement('span');
         wrap.className = 'tw'; h.className = 'tw-h'; h.textContent = n.nodeValue;
         wrap.appendChild(v); wrap.appendChild(h); n.parentNode.replaceChild(wrap, n);
-        return {wrap: wrap, v: v, h: h, text: n.nodeValue, shown: 0};
+        return {wrap: wrap, v: v, h: h, text: n.nodeValue, en: n.__en, shown: 0};
       });
       b.classList.add('tw-typing');
       return parts;
     }
     function finish(st){
-      st.parts.forEach(function(p){ if(p.wrap.parentNode) p.wrap.parentNode.replaceChild(document.createTextNode(p.text), p.wrap); });
+      st.parts.forEach(function(p){ if(p.wrap.parentNode){ var t = document.createTextNode(p.text); if(p.en !== undefined) t.__en = p.en; p.wrap.parentNode.replaceChild(t, p.wrap); } });
       if(st.caret.parentNode) st.caret.parentNode.removeChild(st.caret);
       st.block.classList.remove('tw-typing'); st.done = true;
     }
@@ -693,6 +830,9 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
     states.forEach(function(st){ io.observe(st.block); });
     /* safety net: printing or a tab left in the background never leaves text hidden */
     window.addEventListener('beforeprint', function(){ states.forEach(function(st){ if(!st.done) finish(st); }); });
+    /* language switch: settle text, translate, then re-arm blocks that have not typed yet */
+    window.__twSuspend = function(){ states.forEach(function(st){ if(!st.done){ finish(st); if(!st.started) st.pending = true; } }); };
+    window.__twResume = function(){ states.forEach(function(st){ if(st.pending){ st.pending = false; st.parts = prepare(st.block); st.done = false; } }); };
   })();
 
   /* Hologram portrait: multi-view (2.5D) rotation + true-3D particle orbits */
@@ -725,7 +865,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
       for(var k=0;k<NP;k++){ var p = P[k], th = p.a + rot, z = Math.cos(th), x = Math.sin(th);
         if((z > 0) !== front) continue;
         var px = W/2 + x*p.r*W*1.05, py = p.y*H + z*p.tilt*H, d = .45 + .55*(z+1)/2;
-        ctx.fillStyle = 'rgba(150,235,255,' + (alpha*d*.75).toFixed(3) + ')';
+        ctx.fillStyle = (window.__isLight() ? 'rgba(10,120,160,' : 'rgba(150,235,255,') + (alpha*d*.75).toFixed(3) + ')';
         ctx.beginPath(); ctx.arc(px, py, p.s*d*(front ? 1.3 : .9), 0, 6.283); ctx.fill(); }
     }
     function compose(c, set, v, w, sx){
@@ -780,8 +920,8 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
       particles(a, true, t, pa);
       var deg = Math.round(a) % 360, near = 0, best = 999;
       ANG.concat([360]).forEach(function(x,i){ var d = Math.abs(a - x); if(d < best){ best = d; near = i % ANG.length; } });
-      host.setAttribute('aria-valuenow', deg); host.setAttribute('aria-valuetext', NAMES[near] + ' view');
-      readout.textContent = ('00' + deg).slice(-3) + '° · ' + NAMES[near];
+      host.setAttribute('aria-valuenow', deg); host.setAttribute('aria-valuetext', window.__T(NAMES[near] + ' view'));
+      readout.textContent = ('00' + deg).slice(-3) + '° · ' + window.__T(NAMES[near]);
       if(!booted && bp >= 1){ booted = true; clearStart = t + 450; }
       if(mat >= 1 && !isClear){ isClear = true; host.classList.add('clear'); }
     }
@@ -804,6 +944,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
     function touch(){ lastInput = performance.now(); if(!interacted){ interacted = true; hint && hint.classList.add('used'); } }
     function init(){
       still.style.display = 'none'; figBox.appendChild(cv);
+      document.addEventListener('lm:prefs', draw);
       host.addEventListener('pointerdown', function(e){ dragging = true; lastX = e.clientX; vel = 0; host.classList.add('dragging','active'); touch(); try{ host.setPointerCapture(e.pointerId); }catch(_){} });
       host.addEventListener('pointermove', function(e){ if(!dragging) return; var d = (e.clientX - lastX)*.55; lastX = e.clientX; angle += d; vel = d; touch(); draw(); });
       function end(){ if(!dragging) return; dragging = false; host.classList.remove('dragging'); if(!host.matches(':hover') && document.activeElement !== host) host.classList.remove('active'); if(reduce) vel = 0; touch(); }
@@ -845,7 +986,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
   }
   function draw(){
     ctx.clearRect(0,0,W,H);
-    var R = Math.min(W,H) * (W < 900 ? .42 : .38), cx = W < 900 ? W*.5 : W*.74, cy = H*.5;
+    var R = Math.min(W,H) * (W < 900 ? .42 : .38), cx = W < 900 ? W*.5 : (document.documentElement.dir === 'rtl' ? W*.26 : W*.74), cy = H*.5, LT = window.__isLight();
     var cY = Math.cos(rotY + tx), sY = Math.sin(rotY + tx), cX = Math.cos(rotX + ty), sX = Math.sin(rotX + ty), proj = [];
     for(var i=0;i<N;i++){
       var p = pts[i], x = p[0]*cY - p[2]*sY, z = p[0]*sY + p[2]*cY, y = p[1]*cX - z*sX; z = p[1]*sX + z*cX;
@@ -854,12 +995,12 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
     ctx.lineWidth = 1;
     for(var e=0;e<edges.length;e++){
       var A = proj[edges[e][0]], B = proj[edges[e][1]], d = (2 - (A[2]+B[2])/2)/3;
-      ctx.strokeStyle = 'rgba(94,225,255,' + (d*.22).toFixed(3) + ')';
+      ctx.strokeStyle = (LT ? 'rgba(10,120,160,' : 'rgba(94,225,255,') + (d*(LT ? .26 : .22)).toFixed(3) + ')';
       ctx.beginPath(); ctx.moveTo(A[0],A[1]); ctx.lineTo(B[0],B[1]); ctx.stroke();
     }
     for(var j=0;j<N;j++){
       var q = proj[j], k = (1.2 - q[2])/2.2;
-      ctx.fillStyle = j % 11 === 0 ? 'rgba(255,184,107,' + (k*.9).toFixed(3) + ')' : 'rgba(180,235,255,' + (k*.8).toFixed(3) + ')';
+      ctx.fillStyle = j % 11 === 0 ? (LT ? 'rgba(184,98,0,' : 'rgba(255,184,107,') + (k*.9).toFixed(3) + ')' : (LT ? 'rgba(10,110,150,' : 'rgba(180,235,255,') + (k*.8).toFixed(3) + ')';
       ctx.beginPath(); ctx.arc(q[0], q[1], 1 + k*1.6, 0, 6.283); ctx.fill();
     }
   }
@@ -873,6 +1014,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
   function stop(){ running = false; cancelAnimationFrame(raf); }
   size();
   var rs; window.addEventListener('resize', function(){ clearTimeout(rs); rs = setTimeout(size, 150); });
+  document.addEventListener('lm:prefs', function(){ if(!running) draw(); });
   if('IntersectionObserver' in window){
     new IntersectionObserver(function(es){ visible = es[0].isIntersecting; visible ? start() : stop(); }).observe(cv);
   }
