@@ -4,10 +4,11 @@ Personal portfolio website of Leomar Montesa, IT Specialist based in Jeddah, Sau
 
 ## Structure
 
-- `index.html` — the complete, self-contained site (HTML, CSS, JS and portrait frames inlined). This is what gets deployed.
-- `src/index.src.html` — editable source with `__F0__…__N5__` placeholders for the portrait frames.
-- `src/frames/` — portrait frames: `f0–f5` hologram, `n0–n5` clear photo, at 0°, 45°, 90°, 180°, 270° and 315°.
-- `scripts/build.py` — inlines the frames into the source and regenerates `index.html`.
+- `index.html` — the complete, self-contained site, with its HTML, CSS, JavaScript, portrait frames and logos inlined. This is the file that gets deployed.
+- `src/index.src.html` — the editable source, with `__F0__`–`__N5__` placeholders for the portrait frames and `__L_name__` placeholders for the logos.
+- `src/frames/` — the portrait frames: `f0`–`f5` (hologram) and `n0`–`n5` (clear photo), at 0°, 45°, 90°, 180°, 270° and 315°.
+- `src/logos/` — company logos, each inlined once by the build script.
+- `scripts/build.py` — inlines the frames and logos into the source and regenerates `index.html`.
 
 ## Editing
 
@@ -17,11 +18,13 @@ Personal portfolio website of Leomar Montesa, IT Specialist based in Jeddah, Sau
 
 ## Hosting
 
-No build step is needed to host it: serve `index.html` as a static file (GitHub Pages, Netlify, Vercel, any web server).
-For GitHub Pages: Settings → Pages → Deploy from a branch → `main` / root.
+Hosting needs no build step: serve `index.html` as a static file on GitHub Pages, Netlify, Vercel or any web server.
+For GitHub Pages, go to Settings → Pages → Deploy from a branch, and choose `main` / root.
 
 ## Features
 
-- Responsive layout, dark futuristic theme, subtle 3D card tilt and a 3D network background.
-- Rotatable portrait (2.5D, built from six reference photos): hologram power-on sequence that resolves into the clear photo; drag, swipe or arrow keys to rotate.
-- Respects `prefers-reduced-motion`; pauses animation off-screen; static fallback when canvas is unavailable.
+- A responsive layout with a dark, futuristic theme, subtle 3D card tilt and a 3D network background.
+- A rotatable 2.5D portrait built from six reference photos. A hologram power-on sequence resolves into the clear photo, and visitors can drag, swipe or use the arrow keys to rotate it.
+- Company logos in the experience timeline, and linked logos for each company website.
+- A typewriter text reveal from the About section onward; each block types once, when it first scrolls into view.
+- Respects `prefers-reduced-motion`, pauses animations when they are off-screen, and falls back to static content when canvas or IntersectionObserver is unavailable.
