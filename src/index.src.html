@@ -72,8 +72,9 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-b
 @media (max-width:900px){#net{opacity:.35}}
 .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .85fr;gap:3.5rem;align-items:center;width:100%}
 .eyebrow{font:500 .8rem var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--teal);display:inline-flex;align-items:center;gap:.6rem}
+.stage-title{justify-content:center;text-align:center;margin-top:.9rem;font-size:.74rem}
 .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(47,211,181,.18)}
-h1{font:700 clamp(2.6rem,6.4vw,4.8rem)/1.02 var(--f-head);letter-spacing:-.025em;margin:1rem 0 .6rem}
+h1{font:700 clamp(2.6rem,6.4vw,4.8rem)/1.02 var(--f-head);letter-spacing:-.025em;margin:0 0 .6rem}
 h1 .grad{background:linear-gradient(100deg,#fff 10%,var(--cyan) 55%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
 .role{font:600 clamp(1.1rem,2.2vw,1.4rem) var(--f-head);color:var(--muted);margin-bottom:1.3rem}
 .role b{color:var(--text);font-weight:600}
@@ -287,7 +288,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top" aria-label="Leomar Montesa, home"><span class="brand-mark" aria-hidden="true">LM</span>Leomar Montesa</a>
+    <a class="brand" href="#top" aria-label="Leomar Montesa, home"><span class="brand-mark" aria-hidden="true">LM</span></a>
     <button class="menu-btn" aria-controls="nav-list" aria-expanded="false" aria-label="Open menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
@@ -309,9 +310,8 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
   <canvas id="net" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
-      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>IT Specialist · Jeddah, Saudi Arabia</span>
       <h1 id="hero-title"><span class="grad">Leomar Montesa</span></h1>
-      <p class="role"><b>IT Specialist</b> at <a href="https://rakaizalbaraka.com" target="_blank" rel="noopener noreferrer">Rakaiz Albaraka Corporate Hub<span class="sr-only"> (opens in a new tab)</span></a></p>
+      <p class="role"><b>IT Specialist · Jeddah, Saudi Arabia</b> at Rakaiz Albaraka Corporate Hub</p>
       <p class="lead">BSIT graduate with over 10 years of experience in IT operations and technical support. At Petromin, I managed servers supporting more than 70 stores across the Kingdom and coordinated store openings. At Electropower, I served as an IT Administrator, managing the company’s IT concerns and supporting its technology operations. My expertise includes system implementation, hardware and software support, network infrastructure, ERP systems, and AI tools. In my current role as an IT Specialist, I oversee website deployments, e&#8209;commerce platforms, applications, and ERP systems for the holding company and its subsidiaries.</p>
       <div class="cta">
         <a class="btn primary" href="#experience" data-unlock>View experience
@@ -327,6 +327,7 @@ footer{padding:2.5rem 0 3rem;color:var(--dim);font-size:.85rem;text-align:center
         <div class="holo-frames" aria-hidden="true"><img data-h src="__F0__" alt=""><img data-h src="__F1__" alt=""><img data-h src="__F2__" alt=""><img data-h src="__F3__" alt=""><img data-h src="__F4__" alt=""><img data-h src="__F5__" alt=""><img data-n src="__N1__" alt=""><img data-n src="__N2__" alt=""><img data-n src="__N3__" alt=""><img data-n src="__N4__" alt=""><img data-n src="__N5__" alt=""></div>
         <div class="readout" aria-hidden="true">000&deg; · Front</div>
       </div>
+      <span class="eyebrow stage-title"><span class="dot" aria-hidden="true"></span>IT Specialist · Jeddah, Saudi Arabia</span>
       <p class="holo-hint" aria-hidden="true"><b>&#x27F2;</b> Drag to rotate</p>
       <div class="holo-info">
         <div class="chip loc"><small>Location</small>Jeddah, Saudi Arabia</div>
