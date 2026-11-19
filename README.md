@@ -9,7 +9,7 @@ Personal portfolio website of Leomar Montesa, IT Specialist based in Jeddah, Sau
 - `src/frames/` — the portrait frames: `f0`–`f5` (hologram) and `n0`–`n5` (clear photo), at 0°, 45°, 90°, 180°, 270° and 315°.
 - `src/logos/` — company logos, each inlined once by the build script.
 - `src/i18n/ar.json` — Arabic translations, keyed by the exact English text. When you change English text in the source, update its key here too.
-- `assets/Leomar-Montesa-CV.pdf` — the CV behind the “Download CV” buttons. It is currently a placeholder: replace it with the final PDF, keeping the same name.
+- `assets/Leomar-Montesa-CV.pdf` — the final one-page CV (exported from Canva) behind the “Download CV” buttons. To update it, replace the file and keep the same name.
 - `scripts/build.py` — inlines the frames, logos and Arabic translations into the source and regenerates `index.html`.
 
 ## Editing
